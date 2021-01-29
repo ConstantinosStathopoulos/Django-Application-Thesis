@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Στοιχεία Χρήστη</h1>
+    <ul class="list-group">
+        <li class="list-group-item">Όνομα χρήστη: {{ user }}</li>
+        <li class="list-group-item">Τμήμα: {{user.profile.department}}</li>
+        <li class="list-group-item">Ιδιότητα: {{ user.profile.title }}</li>
+        <li class="list-group-item">Όνομα: {{user.first_name}}</li>
+        <li class="list-group-item">Επίθετο: {{user.last_name}}</li>
+        <li class="list-group-item">Email: {{user.email}}</li>
+    </ul>
+</div>
+
+
+
+{% endblock %}

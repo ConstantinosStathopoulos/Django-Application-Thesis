@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+    <title>{% block title %}Σύστημα Διαχείρησης Οικονομικών HUA{% endblock %}</title>
+    {% block head_meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% endblock head_meta %}
+
+    {% block head_css %}
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    {% endblock head_css %}
+</head>
+
+<body>
+    <!--Navigation Bar with dropdown menu-->
+    <header>
+        <nav class="navbar navbar-dark fixed-top navbar-expand-lg" style="background-color: #364968;">
+            <a class="navbar-brand" href="/"><img src="{% static "images/logo.png" %}"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Αρχική <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/newsfeed">Νέα</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Υπηρεσίες
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/student/my_dashboard">Για Φοιτητές</a>
+                            <a class="dropdown-item" href="/login">Για Διαδάσκοντες</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+
+                    <li><a class="nav-link" href="/myprofile"><b class="bi bi-person"></b><b>{{user.username}}</b></a></li>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <li><a class="nav-link" href="/logout">Logout</a></li>
+                    {% else %}
+                    <li><a class="nav-link" href="/login">Login</a></li>
+                    {% endif %}
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+    </header>
+
+    <!--Rest of page-->
+    <div id="site-wrapper" style="margin-top: 100px;margin-bottom: 100px;">
+        {% block content %}
+        if you see this, something is wrong!
+        {% endblock %}
+    </div>
+
+<!--Footer -->
+<div class="footer">
+    <div class="container">
+        <footer> <small>Copyright {%now "Y"%}, Constantinos Stathopoulos</small> </footer>
+    </div>
+</div>
+
+</body>
+
+
+<!--optional scripts for bootstrap-->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</html>
