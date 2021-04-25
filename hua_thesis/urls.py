@@ -35,6 +35,8 @@ urlpatterns = [
     path('login/', user_login, name='login'),
     path('myprofile/', user_profile, name='profile'),
     path('newsfeed/', views.newsfeed, name='newsfeed'),
-    path('student/my_dashboard', student_dashboard, name='student_dashboard')
+    path('student/my_dashboard', student_dashboard, name='student_dashboard'),
+    path('professor/my_dashboard', professor_dashboard, name='professor_dashboard')
+    # path('student/', include('student.urls'))
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

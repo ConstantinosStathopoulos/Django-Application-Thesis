@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 import ldap
 from decouple import config
-from django_auth_ldap.config import LDAPSearch, LDAPGroupQuery
+from django_auth_ldap.config import LDAPSearch, LDAPGroupQuery, GroupOfNamesType
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -120,6 +120,21 @@ AUTH_LDAP_START_TLS = True
 AUTH_LDAP_USER_SEARCH = LDAPSearch(
     "dc=hua,dc=gr", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
 )
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+    "ou=Groups,dc=hua,dc=gr", ldap.SCOPE_SUBTREE, "(objectClass=groupOfNames)"
+)
+AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr='cn')
+
+AUTH_LDAP_MIRROR_GROUPS = True  # Will sync ldap groups to django, if not exist
+
+## ! My test users do not belong in ou=Groups.
+#Allow only users of specific groups(e.g deny login of undergrad students)
+# AUTH_LDAP_REQUIRE_GROUP = (
+#     LDAPGroupQuery("cn=pos_dit,ou=Groups,dc=hua,dc=gr")
+#     | LDAPGroupQuery("cn=pos_die,ou=Groups,dc=hua,dc=gr")
+#     | LDAPGroupQuery("cn=pos_eco,ou=Groups,dc=hua,dc=gr")
+#     | LDAPGroupQuery("cn=pos_geo,ou=Groups,dc=hua,dc=gr")
+# ) 
 
 #Grouping of LDAP users.
 
@@ -128,6 +143,7 @@ AUTH_LDAP_USER_SEARCH = LDAPSearch(
 #     "is_staff": (
 #         LDAPGroupQuery("cn=administrative,ou=Groups,dc=hua,dc=gr")),
 # }
+
 
 AUTH_LDAP_USER_ATTR_MAP = {
     "first_name": "givenName", 
@@ -140,7 +156,11 @@ AUTH_LDAP_BASE_DN = 'dc=hua,dc=gr'
 
 # This is the default, but I like to be explicit.
 AUTH_LDAP_ALWAYS_UPDATE_USER = True
+AUTH_LDAP_FIND_GROUP_PERMS = True
+AUTH_LDAP_CACHE_GROUPS = True
 
+# Cache names and group memberships for an hour to minimize LDAP traffic.
+AUTH_LDAP_CACHE_TIMEOUT = 3600
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -181,6 +201,10 @@ LOGIN_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+
 
 STATICFILES_DIRS = (
     "hua_thesis/static/static/",

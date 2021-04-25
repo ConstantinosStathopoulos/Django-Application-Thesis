@@ -11,7 +11,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     department = models.CharField(max_length=100, null=True, blank=True)
     title = models.CharField(max_length=100,  null=True, blank=True)
-
+## ? Should I create is_student, is_professor, is_office booleans to keep track of users?
     def __str__(self):
         return self.user.username
 
@@ -27,16 +27,16 @@ class Profile(models.Model):
 
 
 
-# class Students(models.Model):
-#     FULLTIME = 'FT'
-#     PARTTIME = 'PT'
+class Student(models.Model):
+    FULLTIME = 'FT'
+    PARTTIME = 'PT'
     
-#     DURATION_CHOICES = [
-#         (FULLTIME, 'Full Time'),
-#         (PARTTIME, 'Part Time'),
-#     ]
+    DURATION_CHOICES = [
+        (FULLTIME, 'Full Time'),
+        (PARTTIME, 'Part Time'),
+    ] 
 
-#     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, primary_key=True)
-#     postgrad_program = models.CharField(max_length=200, null=True)
-#     year = models.DateField(default=datetime.now)
-#     program_duration = models.CharField(choices=DURATION_CHOICES,default=FULLTIME)
+    # ? How to get only students
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, primary_key=True)
+    postgrad_program = models.CharField(max_length=200, null=True)
+    program_duration = models.CharField(max_length=2, choices=DURATION_CHOICES,default=FULLTIME)

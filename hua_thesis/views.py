@@ -9,6 +9,7 @@ from student.views import *
 def home(request):
     return render(request, "home.html", {})
 
+
 #for user logout
 def user_logout(request):
     logout(request)
@@ -30,7 +31,7 @@ def user_login(request):
                 if user.profile.title == 'Μεταπτυχιακός Φοιτητής':
                     return redirect('student_dashboard')
                 elif user.profile.title == 'Αναπληρωτής Καθηγητής':
-                    return redirect('home')
+                    return redirect('professor_dashboard')
                 else:
                     return redirect('home')
             else:
@@ -42,3 +43,5 @@ def user_login(request):
 #for news view
 def newsfeed(request):
     return render(request, "newsfeed.html", {})
+
+
