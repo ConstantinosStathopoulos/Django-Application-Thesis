@@ -28,6 +28,7 @@ from hua_thesis.views import (
     newsfeed
 )
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
@@ -40,3 +41,6 @@ urlpatterns = [
     # path('student/', include('student.urls'))
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+#to get file urls
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

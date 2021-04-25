@@ -111,8 +111,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 #Ldap Settings
-# AUTHENTICATION_BACKENDS = ["django_auth_ldap.backend.LDAPBackend",
-#  "django.contrib.auth.backends.ModelBackend"]
+
+#LDAP connection parameters
 AUTH_LDAP_SERVER_URI = config('AUTH_LDAP_SERVER_URI')
 AUTH_LDAP_BIND_DN = config('AUTH_LDAP_BIND_DN')
 AUTH_LDAP_BIND_PASSWORD = config('AUTH_LDAP_BIND_PASSWORD')
@@ -120,6 +120,8 @@ AUTH_LDAP_START_TLS = True
 AUTH_LDAP_USER_SEARCH = LDAPSearch(
     "dc=hua,dc=gr", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
 )
+
+#LDAP group to search for user
 AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
     "ou=Groups,dc=hua,dc=gr", ldap.SCOPE_SUBTREE, "(objectClass=groupOfNames)"
 )
@@ -144,7 +146,7 @@ AUTH_LDAP_MIRROR_GROUPS = True  # Will sync ldap groups to django, if not exist
 #         LDAPGroupQuery("cn=administrative,ou=Groups,dc=hua,dc=gr")),
 # }
 
-
+#Attributes from LDAP
 AUTH_LDAP_USER_ATTR_MAP = {
     "first_name": "givenName", 
     "last_name": "sn", 
@@ -202,6 +204,7 @@ LOGIN_REDIRECT_URL = '/'
 
 STATIC_URL = '/static/'
 
+# Media files(e.g pdf receipts of payments)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 

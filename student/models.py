@@ -33,7 +33,7 @@ class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     installment = models.ForeignKey(PaymentInstallment, on_delete=models.CASCADE)
     date = models.DateTimeField(default=datetime.now, blank=True)
-    document = models.FileField(upload_to='student_payments/')
+    document = models.FileField(upload_to='student_payments/%Y/%m/%d/')
     status = models.CharField(
         max_length = 20,
         choices = STATUS_CHOICES,
