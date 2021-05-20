@@ -3,8 +3,74 @@
 {% block content %}
 
 <div>
-<h1>This is professor Dashboard</h1>
+    <h1>This is professor Dashboard</h1>
+</div>
 
+<div class="col">
+    <div class="col-md-5">
+        <h5>Αιτήσεις Χρηματοδότησης</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">Make a payment</a>
+            <table class="table-striped table-responsive-lg">
+                <tr>
+                    <th>Τίτλος</th>
+                    <th>Ημερομηνία</th>
+                    <th>Περιγραφή</th>
+                    <th>Ποσό</th>
+                    <th>Κατάσταση</th>
+                </tr>
+
+                {% for fr in funding_requests%}
+                <tr>
+                    <td>{{fr.title}}</td>
+                    <td>{{fr.date}}</td>
+                    <td>{{fr.description}}</td>
+                    <td>{{fr.amount}}</td>
+                    <td>{{fr.status}}</td>
+                </tr>
+
+                {% endfor %}
+
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="col">
+    <div class="col-md-5">
+        <h5>Αιτήσεις Σεμιναρίων/Ομιλιών</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">Make a payment</a>
+            <table class="table-striped table-responsive-lg">
+                <tr>
+                    <th>Τίτλος</th>
+                    <th>Ημερομηνία Δημ. Αίτησης</th>
+                    <th>Ημερομηνία Εκδήλωσης</th>
+                    <th>Περιγραφή</th>
+                    <th>Κατάσταση</th>
+                </tr>
+
+                {% for cr in speech_requests%}
+                <tr>
+                    <td>{{cr.title}}</td>
+                    <td>{{cr.date}}</td>
+                    <td>{{cr.requested_date}}</td>
+                    <td>{{cr.description}}</td>
+                    <td>{{cr.status}}</td>
+                </tr>
+
+                {% endfor %}
+
+
+            </table>
+        </div>
+
+    </div>
 </div>
 
 

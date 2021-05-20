@@ -5,6 +5,73 @@
 <div>
 <h1>This is Student Dashboard</h1>
 
+    <div class="col">
+        <div class="col-md-5">
+            <h5>Payments</h5>
+            <hr>
+            <div class="card card-body">
+                <a class="btn btn-primary btn-sm btn-block" href="">Make a payment</a>
+                <table class="table-striped table-responsive-sm">
+                    <tr>
+                        <th>Name</th>
+                        <th>Payment Date</th>
+                        <th>File</th>
+                        <th>Status</th>
+                    </tr>
+
+                    {% for payment in student_payments%}
+                    <tr>
+                        <td>{{payment.installment}}</td>
+                        <td>{{payment.date}}</td>
+                        <td><a href="{{payment.document.url}}" target="_blank">Receipt</a></td>
+                        <td>{{payment.status}}</td>
+                    </tr>
+
+                    {% endfor %}
+
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="col-md-5">
+            <h5>Installments</h5>
+            <hr>
+            <div class="card card-body">
+                <a class="btn btn-primary btn-sm btn-block" href="">Make a payment</a>
+                <table class="table-striped table-responsive-sm">
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Due Date</th>
+                    </tr>
+
+                    {% for installment in all_installments%}
+                    <tr>
+                        <td>{{installment.name}}</td>
+                        <td>{{installment.amount}}</td>
+                        <td>{{installment.due_date}}</td>
+                        <td><a class="btn btn-secondary btn-sm btn-block" href="">Pay</a></td>
+                    </tr>
+
+                    {% endfor %}
+
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
 </div>
 
 

@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     #my apps
     'accounts',
     'hua_thesis',
-    'student',
+    'student.apps.StudentConfig',
+    'professor.apps.ProfessorConfig',
 ]
 
 
@@ -160,7 +161,7 @@ AUTH_LDAP_BASE_DN = 'dc=hua,dc=gr'
 AUTH_LDAP_ALWAYS_UPDATE_USER = True
 AUTH_LDAP_FIND_GROUP_PERMS = True
 AUTH_LDAP_CACHE_GROUPS = True
-
+AUTH_LDAP_MIRROR_GROUPS = True
 # Cache names and group memberships for an hour to minimize LDAP traffic.
 AUTH_LDAP_CACHE_TIMEOUT = 3600
 

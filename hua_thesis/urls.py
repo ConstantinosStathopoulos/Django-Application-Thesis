@@ -28,6 +28,11 @@ from hua_thesis.views import (
     newsfeed
 )
 
+from professor.views import (
+    professor_dashboard,
+)
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -5,9 +5,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-# class Students(models.Model):
-
-
 #Model for installments
 
 class PaymentInstallment(models.Model):
@@ -17,6 +14,12 @@ class PaymentInstallment(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Δοσολόγιο Μεταπτυχιακού'
+        verbose_name_plural = 'Δόσεις Μεταπτυχιακού'
+
+
 
 
 STATUS_CHOICES = (
@@ -44,3 +47,7 @@ class Payment(models.Model):
 
     def __str__(self):
         return '{self.user}_{self.installment}_{self.date}'.format(self=self)
+    
+    class Meta:
+        verbose_name = 'Πληρωμή Φοιτητή'
+        verbose_name_plural = 'Πληρωμές Φοιτητών'
