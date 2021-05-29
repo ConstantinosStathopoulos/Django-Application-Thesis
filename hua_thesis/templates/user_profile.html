@@ -1,16 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h1>Στοιχεία Χρήστη</h1>
-    <ul class="list-group">
-        <li class="list-group-item">Όνομα χρήστη: {{ user }}</li>
-        <li class="list-group-item">Τμήμα: {{user.profile.department}}</li>
-        <li class="list-group-item">Ιδιότητα: {{ user.profile.title }}</li>
-        <li class="list-group-item">Όνομα: {{user.first_name}}</li>
-        <li class="list-group-item">Επίθετο: {{user.last_name}}</li>
-        <li class="list-group-item">Email: {{user.email}}</li>
-    </ul>
+<div class="card">
+    <div class="card-title">
+        <figure class="text-center">
+            <h1>Προφίλ Χρήστη</h1>
+        </figure>
+        
+    </div>
+    <div class="d-inline-block card-body">
+        <ul class="h-50 d-inline-block list-group list-group-flush text-center">
+            <li class="list-group-item"><i class="bi bi-file-earmark-person-fill"></i>Όνομα χρήστη: {{ user }}</li>
+            <li class="list-group-item"><i class="bi bi-building"></i>Τμήμα: {{user.profile.department}}</li>
+            <li class="list-group-item"><i class="bi bi-info"></i>Ιδιότητα: {{ user.profile.title }}</li>
+            <li class="list-group-item"><i class="bi bi-info"></i>Όνομα: {{user.first_name}}</li>
+            <li class="list-group-item"><i class="bi bi-info"></i>Επίθετο: {{user.last_name}}</li>
+            <li class="list-group-item"><i class="bi bi-at"></i>Email: {{user.email}}</li>
+        </ul>
+    </div>
 </div>
 
 

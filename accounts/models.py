@@ -15,28 +15,35 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-    # gets the data of user from ldap, adding department and title.
-    @receiver(post_save, sender=User)
-    def create_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.get_or_create(user=instance, department=instance.department, title=instance.title)
-            
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, created, **kwargs):
-        instance.profile.save()
-
+    class Meta:
+        verbose_name_plural = 'Προφίλ Χρηστών'
+        
 
 
 class Student(models.Model):
-    FULLTIME = 'FT'
-    PARTTIME = 'PT'
-    
+
+    MAJOR_OPTIONS = [
+        ("Κατεύθυνση 1η: Τεχνολογίες και Εφαρμογές Ιστού", "Κατεύθυνση 1η: Τεχνολογίες και Εφαρμογές Ιστού"),
+        ("Κατεύθυνση 2η: Διαχείριση Δικτύων Επικοινωνιών και Υπηρεσιών Επόμενης Γενιάς", "Κατεύθυνση 2η: Διαχείριση Δικτύων Επικοινωνιών και Υπηρεσιών Επόμενης Γενιάς"),
+        ("Κατεύθυνση 3η: Πληροφοριακά Συστήματα στη Διοίκηση Επιχειρήσεων", "Κατεύθυνση 3η: Πληροφοριακά Συστήματα στη Διοίκηση Επιχειρήσεων")
+    ]
+
+
     DURATION_CHOICES = [
-        (FULLTIME, 'Full Time'),
-        (PARTTIME, 'Part Time'),
+        ("Πλήρης Φοίτηση", "Πλήρης Φοίτηση"),
+        ("Μερική Φοίτηση", "Μερική Φοίτηση")
     ] 
 
     # ? How to get only students
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, primary_key=True)
-    postgrad_program = models.CharField(max_length=200, null=True)
-    program_duration = models.CharField(max_length=2, choices=DURATION_CHOICES,default=FULLTIME)
+    postgrad_program = models.CharField(max_length=80,choices=MAJOR_OPTIONS, null=True)
+    program_duration = models.CharField(max_length=14, choices=DURATION_CHOICES, null=True)
+
+    def __str__(self):
+        return '{self.profile.user.username}'.format(self=self) 
+        
+
+
+    class Meta:
+        verbose_name = 'Φοιτητής'
+        verbose_name_plural = 'Φοιτητές'

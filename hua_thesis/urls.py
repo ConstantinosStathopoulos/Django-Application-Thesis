@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 from student.views import *
+from professor.views import *
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,22 +29,18 @@ from hua_thesis.views import (
     newsfeed
 )
 
-from professor.views import (
-    professor_dashboard,
-)
-
-
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', views.home, name='home'),
     path('logout/', user_logout, name='logout'),
     path('login/', user_login, name='login'),
     path('myprofile/', user_profile, name='profile'),
     path('newsfeed/', views.newsfeed, name='newsfeed'),
-    path('student/my_dashboard', student_dashboard, name='student_dashboard'),
-    path('professor/my_dashboard', professor_dashboard, name='professor_dashboard')
-    # path('student/', include('student.urls'))
+    path('student/', include('student.urls')),
+    path('professor/', include('professor.urls'))
+    # path('professor/my_dashboard', professor_dashboard, name='professor_dashboard'),
+    # path('professor/create_fund_request', create_funding_request , name='create_fund_request')
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -13,17 +13,21 @@
                 <a class="btn btn-primary btn-sm btn-block" href="">Make a payment</a>
                 <table class="table-striped table-responsive-sm">
                     <tr>
-                        <th>Name</th>
-                        <th>Payment Date</th>
-                        <th>File</th>
-                        <th>Status</th>
+                        <th>Όνομα Δόσης</th>
+                        <th>Ημερ/νια Πληρωμής</th>
+                        <th>Τράπεζα</th>
+                        <th>Αριθμός Συναλαγής</th>
+                        <th>Αρχείο</th>
+                        <th>Κατάσταση</th>
                     </tr>
 
                     {% for payment in student_payments%}
                     <tr>
                         <td>{{payment.installment}}</td>
                         <td>{{payment.date}}</td>
-                        <td><a href="{{payment.document.url}}" target="_blank">Receipt</a></td>
+                        <td>{{payment.bank}}</td>
+                        <td>{{payment.transaction_number}}</td>
+                        <td><a href="{{payment.document.url}}" target="_blank">Προβολή</a></td>
                         <td>{{payment.status}}</td>
                     </tr>
 
@@ -54,7 +58,7 @@
                         <td>{{installment.name}}</td>
                         <td>{{installment.amount}}</td>
                         <td>{{installment.due_date}}</td>
-                        <td><a class="btn btn-secondary btn-sm btn-block" href="">Pay</a></td>
+                        <td><a class="btn btn-secondary btn-sm btn-block" href="{% url 'pay_installment' installment.id %}">Pay</a></td>
                     </tr>
 
                     {% endfor %}
@@ -62,7 +66,6 @@
 
                 </table>
             </div>
-
         </div>
     </div>
 

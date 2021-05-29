@@ -2,7 +2,6 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import FundingRequisition, SpeechRequisition
-
 #Accept action
 def set_status_accepted(modeladmin, request,queryset):
     queryset.update(status = 'Accepted')

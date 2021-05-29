@@ -43,10 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     #my apps
-    'accounts',
+    'accounts.apps.AccountsConfig',
     'hua_thesis',
     'student.apps.StudentConfig',
     'professor.apps.ProfessorConfig',
+    'office.apps.OfficeConfig'
 ]
 
 
@@ -111,6 +112,20 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+#SMTP Configuration / Email settings
+# EMAIL_BACKEND = config('EMAIL_BACKEND')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT')
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+# EMAI_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+
+
+
+
+
+
 #Ldap Settings
 
 #LDAP connection parameters
@@ -138,6 +153,14 @@ AUTH_LDAP_MIRROR_GROUPS = True  # Will sync ldap groups to django, if not exist
 #     | LDAPGroupQuery("cn=pos_eco,ou=Groups,dc=hua,dc=gr")
 #     | LDAPGroupQuery("cn=pos_geo,ou=Groups,dc=hua,dc=gr")
 # ) 
+## ? I will try to limit access with deny_group, until the testing users are in the apropriate groups
+# AUTH_LDAP_DENY_GROUP = (
+#     LDAPGroupQuery("cn=und_die,ou=Groups,dc=hua,dc=gr")
+#     # | LDAPGroupQuery("cn=und_dit,ou=Groups,dc=hua,dc=gr")
+#     | LDAPGroupQuery("cn=und_eco,ou=Groups,dc=hua,dc=gr")
+#     | LDAPGroupQuery("cn=und_geo,ou=Groups,dc=hua,dc=gr")
+# )
+
 
 #Grouping of LDAP users.
 

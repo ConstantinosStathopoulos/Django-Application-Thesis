@@ -2,12 +2,21 @@
 
 {% block content %}
 
-<div class="container">
-    <div>
-        <h1 class="h1" align=center> Ενημερώσεις για Μεταπτυχιακούς Φοιτητές </h1>
-    </div>
+<div class="header">
+    <h1 class="h1" align=center> Ενημερώσεις για Μεταπτυχιακούς Φοιτητές </h1>
 </div>
 
+<div class="row">
+    <div class="leftcolumn">
+        {% for a in announcement %}
+        <div class="card">
+                <h2>{{a.title}}</h2>
+                <h5>{{a.date}}</h5>
+                <p>{{a.text}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 
 

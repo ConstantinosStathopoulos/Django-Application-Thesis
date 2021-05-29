@@ -18,15 +18,16 @@ def set_status_denied(modeladmin, request,queryset):
 set_status_denied.short_description = "Απόριψη επιλεγμένων Πληρωμών"
 
 class PaymentA(admin.ModelAdmin):
-    list_display = ('user', 'installment', 'date','document' , 'status')
+    list_display = ('student', 'installment', 'date','document' , 'status')
     list_editable = ("status",)
-    list_filter = ('user', 'installment','status', 'date')
-    search_fields = ('user__username',)
+    list_filter = ('student', 'installment','status', 'date')
+    search_fields = ('student.profile.user__username',)
     actions = [set_status_accepted, set_status_denied]
 
 class PaymentInstallmentA(admin.ModelAdmin):
-    list_display = ('name','due_date','amount')
-    list_filter = ('name','due_date','amount')
+    list_display = ('name','due_date','program_duration', 'amount')
+    list_filter = ('name','program_duration')
+    list_editable = ("amount","due_date")
 
 
 admin.site.register(Payment,PaymentA)

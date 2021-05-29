@@ -4,16 +4,16 @@
 
 
 <figure class="text-center">
-    <h1 class="h1">Δημιουργία Νέας Αίτησης για Χρηματοδότηση</h1>
+    <h1 class="h1">Πληρωμή Δόσης</h1>
     </figure>
     
     <br/><br/>
     
     <div class="container-lg">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="btn btn-primary">Καταχώρηση</button>
+            <button type="submit" class="btn btn-primary">Καταχώρηση</button> 
         </form>
     </div>
 

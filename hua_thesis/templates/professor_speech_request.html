@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<figure class="text-center">
+<h1 class="h1">Δημιουργία Νέας Αίτησης για Ομιλία/Σεμινάριο</h1>
+</figure>
+
+<br/><br/>
+
+<div class="container-lg">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary">Καταχώρηση</button>
+    </form>
+</div>
+
+
+
+
+
+
+
+{% endblock %}

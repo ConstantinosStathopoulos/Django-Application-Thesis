@@ -2,77 +2,105 @@
 
 {% block content %}
 
-<div>
-    <h1>This is professor Dashboard</h1>
-</div>
-
-<div class="col">
-    <div class="col-md-5">
-        <h5>Αιτήσεις Χρηματοδότησης</h5>
-        <hr>
-        <div class="card card-body">
-            <a class="btn btn-primary btn-sm btn-block" href="">Make a payment</a>
-            <table class="table-striped table-responsive-lg">
-                <tr>
-                    <th>Τίτλος</th>
-                    <th>Ημερομηνία</th>
-                    <th>Περιγραφή</th>
-                    <th>Ποσό</th>
-                    <th>Κατάσταση</th>
-                </tr>
-
-                {% for fr in funding_requests%}
-                <tr>
-                    <td>{{fr.title}}</td>
-                    <td>{{fr.date}}</td>
-                    <td>{{fr.description}}</td>
-                    <td>{{fr.amount}}</td>
-                    <td>{{fr.status}}</td>
-                </tr>
-
-                {% endfor %}
-
-
-            </table>
-        </div>
-
+<figure class="text-center">
+    <div>
+        <h1>Κεντρική Σελίδα Καθηγητών</h1>
     </div>
-</div>
-
-
-<div class="col">
-    <div class="col-md-5">
-        <h5>Αιτήσεις Σεμιναρίων/Ομιλιών</h5>
-        <hr>
-        <div class="card card-body">
-            <a class="btn btn-primary btn-sm btn-block" href="">Make a payment</a>
-            <table class="table-striped table-responsive-lg">
-                <tr>
-                    <th>Τίτλος</th>
-                    <th>Ημερομηνία Δημ. Αίτησης</th>
-                    <th>Ημερομηνία Εκδήλωσης</th>
-                    <th>Περιγραφή</th>
-                    <th>Κατάσταση</th>
-                </tr>
-
-                {% for cr in speech_requests%}
-                <tr>
-                    <td>{{cr.title}}</td>
-                    <td>{{cr.date}}</td>
-                    <td>{{cr.requested_date}}</td>
-                    <td>{{cr.description}}</td>
-                    <td>{{cr.status}}</td>
-                </tr>
-
-                {% endfor %}
-
-
-            </table>
+</figure>
+<div class="container-sm">
+    <div class="p-2 flex-shrink-1 bd-highlight">
+        <div class="col-sm-6">
+            <div class="card card-body">
+                <h5>Σύνολο αιτηθέντων χρημάτων</h5>
+                <hr>
+                {{ fund_sum }}
+            </div>
         </div>
-
+        <div class="col">
+                <div class="card card-body">
+                    <h5>Αιτήσεις Χρηματοδότησης</h5>
+                    <hr>
+                    <div class= "table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Τίτλος</th>
+                                    <th>Ημερομηνία</th>
+                                    <th>Περιγραφή</th>
+                                    <th>Ποσό</th>
+                                    <th>Κατάσταση</th>
+                                    <th>Ενέργειες</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for fr in funding_requests%}
+                                <tr>
+                                    <td>{{fr.title}}</td>
+                                    <td>{{fr.date}}</td>
+                                    <td>{{fr.description}}</td>
+                                    <td>{{fr.amount}}</td>
+                                    {% if fr.status == 'Pending' %}
+                                    <td class="table-warning">{{fr.status}}</td>
+                                    <td><button type="button" class="btn btn-primary">Ενημέρωση</button></td>
+                                    <td><button type="button" class="btn btn-danger">Διαγραφή</button></td>
+                                    {% elif fr.status == 'Accepted' %}
+                                    <td class="table-success">{{fr.status}}</td>
+                                    {% else %}
+                                    <td class="table-danger">{{fr.status}}</td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div align="right">
+                        <a class="btn btn-primary btn-md" href="{% url 'create_funding_request' %}">Νέα Αίτηση Χρηματοδότησης</a>
+                    </div>
+                </div>
+        </div>
     </div>
-</div>
 
+
+
+    <div class="col">
+            <div class="card card-body">
+                <h5>Αιτήσεις Σεμιναρίων/Ομιλιών</h5>
+                <hr>
+                <table class="table table-hover table-striped table-responsive-lg">
+                    <tr>
+                        <th>Τίτλος</th>
+                        <th>Ημερομηνία Δημ. Αίτησης</th>
+                        <th>Ημερομηνία Εκδήλωσης</th>
+                        <th>Περιγραφή</th>
+                        <th>Κατάσταση</th>
+                    </tr>
+
+                    {% for cr in speech_requests%}
+                    <tr>
+                        <td>{{cr.title}}</td>
+                        <td>{{cr.date}}</td>
+                        <td>{{cr.requested_date}}</td>
+                        <td>{{cr.description}}</td>
+                        {% if cr.status == 'Pending' %}
+                            <td class="table-warning">{{cr.status}}</td>
+                            {% elif cr.status == 'Accepted' %}
+                            <td class="table-success">{{cr.status}}</td>
+                            {% else %}
+                            <td class="table-danger">{{cr.status}}</td>
+                            {% endif %}
+                    </tr>
+
+                    {% endfor %}
+
+
+                </table>
+                <div align="right">
+                    <a class="btn btn-primary btn-md" href="{% url 'create_speech_request' %}">Νέα αίτηση για ομιλία/συνέδριο</a>
+                </div>
+            </div>
+        </div>
+</div> 
 
 
 
