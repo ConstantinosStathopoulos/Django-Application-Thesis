@@ -2,55 +2,68 @@
 
 {% block content %}
 
-<div>
-<h1>This is Student Dashboard</h1>
 
-    <div class="col">
-        <div class="col-md-5">
-            <h5>Payments</h5>
-            <hr>
+
+<figure class="text-center">
+    <div>
+        <h1>Κεντρική Σελίδα Φοιτητών</h1>
+    </div>
+</figure>
+
+<div class="container-sm">
+    <div class="p-2 flex-shrink-1 bd-highlight">
+        <div class="col-sm-6">
             <div class="card card-body">
-                <a class="btn btn-primary btn-sm btn-block" href="">Make a payment</a>
-                <table class="table-striped table-responsive-sm">
-                    <tr>
-                        <th>Όνομα Δόσης</th>
-                        <th>Ημερ/νια Πληρωμής</th>
-                        <th>Τράπεζα</th>
-                        <th>Αριθμός Συναλαγής</th>
-                        <th>Αρχείο</th>
-                        <th>Κατάσταση</th>
-                    </tr>
-
-                    {% for payment in student_payments%}
-                    <tr>
-                        <td>{{payment.installment}}</td>
-                        <td>{{payment.date}}</td>
-                        <td>{{payment.bank}}</td>
-                        <td>{{payment.transaction_number}}</td>
-                        <td><a href="{{payment.document.url}}" target="_blank">Προβολή</a></td>
-                        <td>{{payment.status}}</td>
-                    </tr>
-
-                    {% endfor %}
-
-
-                </table>
+            <h5>Συνολικές Πληρωμές</h5>
+            <hr>
+            <!-- {{payments_sum}} -->
             </div>
-
+        </div>
+        <div class="col">
+            <div class="card card-body">
+                <h5>Πληρωμές Φοιτητή</h5>
+                <hr>
+                <div class="table-responsive">
+                    <table class="table table-hover table-responsive-lg">
+                        <thead>
+                            <tr>
+                                <th>Όνομα Δόσης</th>
+                                <th>Ημερ/νια Πληρωμής</th>
+                                <th>Τράπεζα</th>
+                                <th>Αριθμός Συναλαγής</th>
+                                <th>Αρχείο</th>
+                                <th>Κατάσταση</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for payment in student_payments%}
+                            <tr>
+                                <td>{{payment.installment}}</td>
+                                <td>{{payment.date}}</td>
+                                <td>{{payment.bank}}</td>
+                                <td>{{payment.transaction_number}}</td>
+                                <td><a href="{{payment.document.url}}" target="_blank">Προβολή</a></td>
+                                <td>{{payment.status}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
+
     <div class="col">
-        <div class="col-md-5">
-            <h5>Installments</h5>
+        <div class="card card-body">
+            <h5>Δόσεις Προγράμματος Φοίτησης</h5>
             <hr>
-            <div class="card card-body">
                 <a class="btn btn-primary btn-sm btn-block" href="">Make a payment</a>
-                <table class="table-striped table-responsive-sm">
+                <table class="table table-hover table-striped table-responsive-lg">
                     <tr>
-                        <th>Name</th>
-                        <th>Amount</th>
-                        <th>Due Date</th>
+                        <th>Όνομα Δόσης</th>
+                        <th>Ποσό Δόσης</th>
+                        <th>Πληρωμή έως</th>
                     </tr>
 
                     {% for installment in all_installments%}
@@ -68,14 +81,14 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
 </div>
+
+
+
+
+
+
+
 
 
 

@@ -2,6 +2,8 @@ from django.forms import ModelForm
 from .models import *
 from django.http import request
 from django import forms
+from django.forms.widgets import DateTimeInput
+from django.forms.fields import SplitDateTimeField
 
 
 
@@ -22,8 +24,13 @@ class FundingRequisitionForm(ModelForm):
         'amount': forms.NumberInput(attrs={'class': 'form-control'}),
         'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Κείμενο περιγραφής του λόγου αίτησης χρηματοδότησης'}),
         }
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
 
 class SpeechRequisitionForm(ModelForm):
+
+    
     class Meta:
         model = SpeechRequisition
         fields = ['title', 'requested_date', 'description']
@@ -36,6 +43,6 @@ class SpeechRequisitionForm(ModelForm):
 
         widgets = {
         'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Τίτλος της ομιλίας/σεμιναρίου'}),
-        'requested_date': forms.TextInput(attrs={'class': 'form-control'}),
+        'requested_date': forms.SplitDateTimeWidget(date_attrs={'class': 'form-control','type': 'date'}, time_attrs={'class': 'form-control','type': 'time'}),
         'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Κείμενο περιγραφής της ομιλίας/σεμιναρίου'}),
         }
