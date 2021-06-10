@@ -8,5 +8,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('my_dashboard', student_dashboard, name='student_dashboard'),
-    path('payment/<str:pk>', payInstallment, name='pay_installment')
+    path('new_payment/<str:pk>/', payInstallment, name='pay_installment'),
+    path('update_payment/<str:pk>/', update_payment, name='update_payment'),
+    path('delete_payment/<str:pk>/', delete_payment, name='delete_payment')
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+#to get file urls
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

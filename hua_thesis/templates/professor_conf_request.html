@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load crispy_forms_tags %}
 
-
-<h1>This is professor Conference Request Form</h1>
-
-<div>
-    <form action="/your-name/" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-    </form>
-</div>
-
+<figure class="text-center">
+    <h1 class="h1">Δημιουργία Νέας Αίτησης για Ομιλία/Σεμινάριο</h1>
+    </figure>
+    
+    <br/><br/>
+    
+    <div class="container-lg">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form|crispy }}
+            <br>
+            <button class="btn btn-primary">Καταχώρηση</button>
+        </form>
+    </div>
 
 
 

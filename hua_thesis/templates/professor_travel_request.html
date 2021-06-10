@@ -4,13 +4,13 @@
 {% load crispy_forms_tags %}
 
 <figure class="text-center">
-<h1 class="h1">Δημιουργία Νέας Αίτησης για Ομιλία/Σεμινάριο</h1>
+<h1 class="h1">Δημιουργία Νέας Αίτησης για Μετακίνηση/Ταξίδι</h1>
 </figure>
 
 <br/><br/>
 
 <div class="container-lg">
-    <form method="POST">
+    <form method="POST" >
         {% csrf_token %}
         {{ form.media }}
         {{ form|crispy }}

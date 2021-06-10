@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card">
-    <div class="card-title">
-        <figure class="text-center">
-            <h1>Προφίλ Χρήστη</h1>
-        </figure>
+<div class="d-flex justify-content-center">
+    <div class="card" style="width: 25rem;">
+        <div class="card-header">
+            <figure class="text-center">
+                <h1>Στοιχεία Χρήστη</h1>
+            </figure>
+            
+        </div>
         
-    </div>
-    <div class="d-inline-block card-body">
-        <ul class="h-50 d-inline-block list-group list-group-flush text-center">
+        <ul class="list-group list-group-flush">
             <li class="list-group-item"><i class="bi bi-file-earmark-person-fill"></i>Όνομα χρήστη: {{ user }}</li>
             <li class="list-group-item"><i class="bi bi-building"></i>Τμήμα: {{user.profile.department}}</li>
             <li class="list-group-item"><i class="bi bi-info"></i>Ιδιότητα: {{ user.profile.title }}</li>
@@ -17,6 +18,7 @@
             <li class="list-group-item"><i class="bi bi-info"></i>Επίθετο: {{user.last_name}}</li>
             <li class="list-group-item"><i class="bi bi-at"></i>Email: {{user.email}}</li>
         </ul>
+        
     </div>
 </div>
 

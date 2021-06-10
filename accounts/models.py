@@ -20,7 +20,11 @@ class Profile(models.Model):
         
 
 
+
+    
+
 class Student(models.Model):
+
 
     MAJOR_OPTIONS = [
         ("Κατεύθυνση 1η: Τεχνολογίες και Εφαρμογές Ιστού", "Κατεύθυνση 1η: Τεχνολογίες και Εφαρμογές Ιστού"),
@@ -34,15 +38,22 @@ class Student(models.Model):
         ("Μερική Φοίτηση", "Μερική Φοίτηση")
     ] 
 
+    YEAR_CHOICES = [
+        (r,r) for r in range(2006, datetime.date.today().year+1)
+    ]
+
+
     # ? How to get only students
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, primary_key=True)
     postgrad_program = models.CharField(max_length=80,choices=MAJOR_OPTIONS, null=True)
     program_duration = models.CharField(max_length=14, choices=DURATION_CHOICES, null=True)
+    postgrad_year =  models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True, default=datetime.datetime.now().year)
 
     def __str__(self):
         return '{self.profile.user.username}'.format(self=self) 
         
 
+    
 
     class Meta:
         verbose_name = 'Φοιτητής'

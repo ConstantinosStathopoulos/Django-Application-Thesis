@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="card">
+        <div class="row">
+            <div class="col">
+                <div class="col-md">
+                    <div class="card text-center mb-3 border border-secondary border-4 rounded-3" style="width: 18rem;">
+                        <div class="card-header">
+                            <h5 class="card-title">Σύνολο Πληρωμών</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{paid_sum}}/
+                                {% if postgrad_price == None %}
+                                    {{paid_sum}}
+                                {% else %}
+                                    {{ postgrad_price }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col-md">
+                    <div class="card text-center mb-3 border border-secondary border-4 rounded-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <h5 class="card-title">Κατάσταση Πληρωμών</h5>
+                            </div>
+                            <div class="card-body">
+                                Σύνολο:
+                                <p class="card-text">{{ student_payments.count }}</p>
+                                Αποδεκτες:
+                                <p class="card-text">{{ accepted_student_payments.count }}</p>
+                                Απορριπτέες:
+                                <p class="card-text">{{ declined_student_payments.count }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            <div class="col">
+                <div class="col-md">
+                    <div class="card text-center mb-3 border border-secondary border-4 rounded-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <h5 class="card-title">Αριθμός Αιτήσεων Ομιλίας/Σεμιναρίου</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- <p class="card-text">{{ num_of_speech_requests }}</p> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            <div class="col">
+                <div class="col-md">
+                    <div class="card text-center mb-3 border border-secondary border-4 rounded-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <h5 class="card-title">Αριθμός Αιτήσεων Μετακίνησης/Ταξιδιού</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- <p class="card-text">{{ num_of_travel_requests }}</p> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>

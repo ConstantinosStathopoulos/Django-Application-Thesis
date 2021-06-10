@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="col-md">
+                <div class="card text-center mb-3 border border-primary border-4 rounded-3" style="width: 18rem;">
+                    <div class="card-header">
+                        <h5 class="card-title">Σύνολο αιτηθέντων χρημάτων</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ fund_sum }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="col-md">
+                <div class="card text-center mb-3 border border-primary border-4 rounded-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <h5 class="card-title">Αριθμός Αιτήσεων Χρηματοδότησης</h5>
+                        </div>
+                        <div class="card-body">
+                            Σύνολο:
+                            <p class="card-text">{{ funding_requests.count }}</p>
+                            Αποδεκτες:
+                            <p class="card-text">{{ accepted_funding_requests.count }}</p>
+                            Απορριπτέες:
+                            <p class="card-text">{{ declined_funding_requests.count }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+        <div class="col">
+            <div class="col-md">
+                <div class="card text-center mb-3 border border-primary border-4 rounded-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <h5 class="card-title">Αριθμός Αιτήσεων Ομιλίας/Σεμιναρίου</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ num_of_speech_requests }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+        <div class="col">
+            <div class="col-md">
+                <div class="card text-center mb-3 border border-primary border-4 rounded-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <h5 class="card-title">Αριθμός Αιτήσεων Μετακίνησης/Ταξιδιού</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ num_of_travel_requests }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>

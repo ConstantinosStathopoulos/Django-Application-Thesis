@@ -17,10 +17,10 @@ class ProfileA(admin.ModelAdmin):
 
 
 class StudentA(admin.ModelAdmin):
-    list_display = ('profile','postgrad_program','program_duration')
-    list_filter = ('postgrad_program', 'program_duration')
+    list_display = ('profile','postgrad_program','postgrad_year','program_duration')
+    list_filter = ('postgrad_year', 'postgrad_program', 'program_duration')
     search_fields = ('profile__user__username',)
-    list_editable = ('postgrad_program', 'program_duration')
+    list_editable = ('postgrad_program', 'program_duration', 'postgrad_year')
 
 admin.site.register(Profile,ProfileA)
 #admin.site.register(PaymentInstallment)

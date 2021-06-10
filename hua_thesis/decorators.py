@@ -1,5 +1,7 @@
 from django.http import HttpResponse    
 from django.shortcuts import redirect
+from accounts.models import Profile
+from django.contrib.auth.decorators import user_passes_test
 
 #decorator for unauthenticated users
 def unauthenticated_user(view_func):
@@ -10,3 +12,24 @@ def unauthenticated_user(view_func):
             return view_func(request, *args, **kwargs)
     
     return wrapper_func
+
+
+#decorator to check if user is a postgrad student
+def postgrad_student_required(function=None):
+    def is_postgrad(u):
+        return Profile.objects.filter(user=u, title='Μεταπτυχιακός Φοιτητής').exists()
+    actual_decorator = user_passes_test(is_postgrad)
+    if function:
+        return actual_decorator(function)
+    else:
+        return actual_decorator
+
+#decorator to check if user is a professor
+def professor_required(function=None):
+    def is_professor(u):
+        return Profile.objects.filter(user=u, title='Αναπληρωτής Καθηγητής').exists()
+    actual_decorator = user_passes_test(is_professor)
+    if function:
+        return actual_decorator(function)
+    else:
+        return actual_decorator

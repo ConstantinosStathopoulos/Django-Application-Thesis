@@ -9,7 +9,7 @@ from .decorators import unauthenticated_user
 from django.urls import reverse
 from office.models import Announcement
 
-@unauthenticated_user
+
 def home(request):
     return render(request, "home.html", {})
 
@@ -45,7 +45,7 @@ def user_login(request):
 
 #for news view
 def newsfeed(request):
-    announcement = Announcement.objects.all()
+    announcement = Announcement.objects.order_by('-date')
     context = {'announcement':announcement}
     return render(request, "newsfeed.html", context)
 

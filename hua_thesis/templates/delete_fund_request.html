@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<p> Θέλετε να διαγράψετε την αίτηση "{{fund_request}}"</p>
+
+<br/><br/>
+
+<div class="container-lg">
+    <form action="{% url 'delete_funding_request' fund_request.id %}" method="POST" >
+        {% csrf_token %}
+        <a type="button" class="btn btn-secondary" href="{% url 'professor_dashboard' %}">Ακύρωση</a>
+
+        <input type="submit" name="Διαγραφή" class="btn btn-danger">
+    </form>
+</div>
+
+
+
+{% endblock %}

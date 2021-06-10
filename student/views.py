@@ -1,12 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from hua_thesis.decorators import postgrad_student_required
 from .models import *
 from .forms import *
 from accounts.models import Student
+from django.db.models import Sum
+from .filters import PaymentFilter
+
+
 # Create your views here.
 
 
 @login_required
+@postgrad_student_required
 def student_dashboard(request):
     #Querysets
     
@@ -14,15 +20,31 @@ def student_dashboard(request):
     #student payments
     student_payments = Payment.objects.filter(student=student)
     #all the installments of the student, depending on program duration
-    all_installments = PaymentInstallment.objects.filter(program_duration=student.program_duration).exclude(payment__in=student_payments)
-    #current debt
+    all_installments = PaymentInstallment.objects.filter(program_duration=student.program_duration, postgrad_year=student.postgrad_year).exclude(payment__in=student_payments, payment__status='Αποδεκτή').exclude(payment__in=student_payments, payment__status='Υπο Έλεγχο').order_by('due_date')
+    #program price
+    postgrad_price = all_installments.aggregate(Sum('amount'))['amount__sum']
+    #paid amount
+    paid_sum = PaymentInstallment.objects.filter(program_duration=student.program_duration, payment__in=student_payments).aggregate(Sum('amount'))['amount__sum']
+    accepted_student_payments = Payment.objects.filter(student=student,status="Αποδεκτή")
+    declined_student_payments = Payment.objects.filter(student=student,status="Μη Αποδεκτή")
 
+    #filters
+    paymentFilter = PaymentFilter(request.GET, queryset=student_payments)
+    student_payments = paymentFilter.qs
 
 
 
     context = {
         'student_payments':student_payments,
         'all_installments':all_installments,
+
+        'pfilter': paymentFilter,
+
+        'postgrad_price':postgrad_price,
+        'paid_sum':paid_sum,
+        'accepted_student_payments': accepted_student_payments,
+        'declined_student_payments': declined_student_payments,
+        
     }
 
     return render(request, "student_dashboard.html", context)
@@ -30,6 +52,7 @@ def student_dashboard(request):
 
 
 @login_required
+@postgrad_student_required
 def payInstallment(request, pk):
 
     installment = PaymentInstallment.objects.get(id=pk)
@@ -48,3 +71,38 @@ def payInstallment(request, pk):
     context = {'form':form}
 
     return render(request, "payment_form.html", context)
+
+
+
+@login_required
+@postgrad_student_required
+def update_payment(request, pk):
+    
+    payment= Payment.objects.get(id=pk)
+    form = PaymentForm(instance=payment)
+
+    if request.method == "POST":
+        form = PaymentForm(request.POST, instance=payment)
+        if form.is_valid():
+            form.save()
+            return redirect('student_dashboard')
+    context = {
+        'form': form
+    }
+    return render(request, 'payment_form.html', context)
+
+
+
+@login_required
+@postgrad_student_required
+def delete_payment(request, pk):
+    
+    payment= Payment.objects.get(id=pk)
+
+    if request.method == "POST":
+        payment.delete()
+        return redirect('student_dashboard')
+    context = {
+        'payment': payment
+    }
+    return render(request, 'payment_form.html', context)

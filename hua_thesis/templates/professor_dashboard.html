@@ -1,25 +1,53 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <figure class="text-center">
     <div>
-        <h1>Κεντρική Σελίδα Καθηγητών</h1>
+        <h1>Σελίδα Αιτήσεων Καθηγητών</h1>
+        <h1>Καλως Ήρθατε, {{user.last_name}}</h1>
     </div>
 </figure>
-<div class="container-sm">
-    <div class="p-2 flex-shrink-1 bd-highlight">
-        <div class="col-sm-6">
-            <div class="card card-body">
-                <h5>Σύνολο αιτηθέντων χρημάτων</h5>
-                <hr>
-                {{ fund_sum }}
-            </div>
+
+<!-- Tabs  -->
+<ul class="nav nav-tabs" id="nav-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true" href="#general">Γενικές Πληροφορίες</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="funding-tab" data-bs-toggle="tab" data-bs-target="#funding" type="button" role="tab" aria-controls="funding" aria-selected="false" href="#funding">Αιτήσεις Χρηματοδότησης</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="speech-tab" data-bs-toggle="tab" data-bs-target="#speech" type="button" role="tab" aria-controls="speech" aria-selected="false" href="#speech">Αιτήσεις Ομιλίας/Σεμιναρίου</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="travel-tab" data-bs-toggle="tab" data-bs-target="#travel" type="button" role="tab" aria-controls="travel" aria-selected="false" href="#travel">Αιτήσεις Ταξιδιών/Μετακινήσεων</button>
+    </li>
+</ul>
+
+<!-- Tabs Content -->
+<div class="tab-content" id="nav-tabContent">
+    <!-- General tab -->
+    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="nav-general-tab">
+        <div class="container">
+            {% include "professor_general.html"%}
         </div>
-        <div class="col">
-                <div class="card card-body">
-                    <h5>Αιτήσεις Χρηματοδότησης</h5>
-                    <hr>
+    </div>
+    <!-- Funding Request Tab -->
+    <div class="tab-pane fade" id="funding" role="tabpanel" aria-labelledby="funding-tab">
+        <h5>Αιτήσεις Χρηματοδότησης</h5>
+            <hr>
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card card-body border border-2">
+                        <form method="get">
+                            {{ fundFilter.form }}
+                            <button class="btn btn-primary" type="submit">Αναζήτηση</button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <div class="card card-body border border-2">
                     <div class= "table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -38,13 +66,17 @@
                                 <tr>
                                     <td>{{fr.title}}</td>
                                     <td>{{fr.date}}</td>
-                                    <td>{{fr.description}}</td>
+                                    <td>{{fr.description|safe}}</td>
                                     <td>{{fr.amount}}</td>
-                                    {% if fr.status == 'Pending' %}
+                                    {% if fr.status == 'Υπο Έλεγχο' %}
                                     <td class="table-warning">{{fr.status}}</td>
-                                    <td><button type="button" class="btn btn-primary">Ενημέρωση</button></td>
-                                    <td><button type="button" class="btn btn-danger">Διαγραφή</button></td>
-                                    {% elif fr.status == 'Accepted' %}
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url 'update_funding_request' fr.id %}">Ενημέρωση</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" href="{% url 'delete_funding_request' fr.id %}" >Διαγραφή</a>   
+                                    </td>
+                                    {% elif fr.status == 'Αποδεκτή' %}
                                     <td class="table-success">{{fr.status}}</td>
                                     {% else %}
                                     <td class="table-danger">{{fr.status}}</td>
@@ -58,49 +90,127 @@
                         <a class="btn btn-primary btn-md" href="{% url 'create_funding_request' %}">Νέα Αίτηση Χρηματοδότησης</a>
                     </div>
                 </div>
-        </div>
+            </div>
     </div>
-
-
-
-    <div class="col">
-            <div class="card card-body">
-                <h5>Αιτήσεις Σεμιναρίων/Ομιλιών</h5>
-                <hr>
-                <table class="table table-hover table-striped table-responsive-lg">
-                    <tr>
-                        <th>Τίτλος</th>
-                        <th>Ημερομηνία Δημ. Αίτησης</th>
-                        <th>Ημερομηνία Εκδήλωσης</th>
-                        <th>Περιγραφή</th>
-                        <th>Κατάσταση</th>
-                    </tr>
-
-                    {% for cr in speech_requests%}
-                    <tr>
-                        <td>{{cr.title}}</td>
-                        <td>{{cr.date}}</td>
-                        <td>{{cr.requested_date}}</td>
-                        <td>{{cr.description}}</td>
-                        {% if cr.status == 'Pending' %}
-                            <td class="table-warning">{{cr.status}}</td>
-                            {% elif cr.status == 'Accepted' %}
-                            <td class="table-success">{{cr.status}}</td>
-                            {% else %}
-                            <td class="table-danger">{{cr.status}}</td>
-                            {% endif %}
-                    </tr>
-
-                    {% endfor %}
-
-
-                </table>
-                <div align="right">
-                    <a class="btn btn-primary btn-md" href="{% url 'create_speech_request' %}">Νέα αίτηση για ομιλία/συνέδριο</a>
-                </div>
+    <!-- Speech Request Tab -->
+    <div class="tab-pane fade" id="speech" role="tabpanel" aria-labelledby="speech-tab">
+        <div class="card card-body">
+            <h5>Αιτήσεις Σεμιναρίων/Ομιλιών</h5>
+            <hr>
+            <div class= "table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Τίτλος</th>
+                            <th>Ημερομηνία Δημ. Αίτησης</th>
+                            <th>Ημερομηνία Εκδήλωσης</th>
+                            <th>Ώρα Εκδήλωσης</th>
+                            <th>Περιγραφή</th>
+                            <th>Κατάσταση</th>
+                            <th>Ενέργειες</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cr in speech_requests%}
+                        <tr>
+                            <td>{{cr.title}}</td>
+                            <td>{{cr.date}}</td>
+                            <td>{{cr.requested_date}}</td>
+                            <td>{{cr.requested_time}}</td>
+                            <td>{{cr.description|safe}}</td>
+                            {% if cr.status == 'Υπο Έλεγχο' %}
+                                <td class="table-warning">{{cr.status}}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'update_speech_request' cr.id %}">Ενημέρωση</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href="{% url 'delete_speech_request' cr.id %}" >Διαγραφή</a>   
+                                </td>
+                                {% elif cr.status == 'Αποδεκτή' %}
+                                <td class="table-success">{{cr.status}}</td>
+                                {% else %}
+                                <td class="table-danger">{{cr.status}}</td>
+                                {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>        
+            </div>       
+            <div align="right">
+                <a class="btn btn-primary btn-md" href="{% url 'create_speech_request' %}">Νέα αίτηση για ομιλία/συνέδριο</a>
             </div>
         </div>
-</div> 
+    </div>
+    <!-- Travel Request Tab -->
+    <div class="tab-pane fade" id="travel" role="tabpanel" aria-labelledby="travel-tab">
+        <div class="card card-body">
+            <h5>Αιτήσεις Μετακινήσεων/Ταξιδιών</h5>
+            <hr>
+            <div class= "table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Τίτλος</th>
+                            <th>Ημερομηνία Δημ. Αίτησης</th>
+                            <th>Ημερομηνία Ταξιδιού</th>
+                            <th>Περιγραφή</th>
+                            <th>Έξοδα Μετακίνησης</th>
+                            <th>Έξοδα Εγγραφής</th>
+                            <th>Έξοδα Διαμονής</th>
+                            <th>Τοποθεσία</th>
+                            <th>Κατάσταση</th>
+                            <th>Ενέργειες</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tr in travel_requests%}
+                        <tr>
+                            <td>{{tr.title}}</td>
+                            <td>{{tr.date}}</td>
+                            <td>{{tr.requested_date}}</td>
+                            <td>{{tr.description|safe}}</td>
+                            <td>{{tr.travel_fees}}</td>
+                            <td>{{tr.registration_fees}}</td>
+                            <td>{{tr.accommodation_fees}}</td>
+                            <td>{{tr.location}}</td>
+                            {% if tr.status == 'Υπο Έλεγχο' %}
+                                <td class="table-warning">{{tr.status}}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'update_travel_request' tr.id %}">Ενημέρωση</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href="{% url 'delete_travel_request' tr.id %}" >Διαγραφή</a>   
+                                </td>
+                                {% elif tr.status == 'Αποδεκτή' %}
+                                <td class="table-success">{{tr.status}}</td>
+                                {% else %}
+                                <td class="table-danger">{{tr.status}}</td>
+                                {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>        
+            </div>       
+            <div align="right">
+                <a class="btn btn-primary btn-md" href="{% url 'create_travel_request' %}">Νέα αίτηση για μετακίνηση</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    button.active.nav-link{
+        background-color: #364968!important;
+        color: white!important
+    }
+    button.nav-link:hover{
+        background-color:#546581 !important;
+        color: white!important
+    }
+</style>
+
 
 
 

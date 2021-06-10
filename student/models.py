@@ -3,12 +3,18 @@ from accounts.models import Profile
 from datetime import datetime
 from django.contrib.auth.models import User
 from accounts.models import Student
-
+import datetime
+from django.utils.timezone import now
+from django.utils import timezone
 
 DUR_CHOICES = (
     ("Πλήρης Φοίτηση", "Πλήρης Φοίτηση"),
     ("Μερική Φοίτηση", "Μερική Φοίτηση")
 )
+
+YEAR_CHOICES = [
+        (r,r) for r in range(2006, datetime.date.today().year+1)
+    ]
 
 
 class PaymentInstallment(models.Model):
@@ -16,6 +22,7 @@ class PaymentInstallment(models.Model):
     amount = models.DecimalField(max_digits=4, decimal_places=1)
     due_date = models.DateField(auto_now_add=False, auto_now=False, blank=True, null=True)
     program_duration = models.CharField(max_length = 14, choices= DUR_CHOICES, default= "Πλήρης Φοίτηση")
+    postgrad_year =  models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True, default=datetime.datetime.now().year)
 
     def __str__(self):
         return self.name
@@ -53,10 +60,11 @@ def user_directory_path(instance, filename):
 class Payment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     installment = models.ForeignKey(PaymentInstallment, on_delete=models.CASCADE)
-    date = models.DateTimeField(default=datetime.now, blank=True)
+    created_on = models.DateTimeField(default=timezone.now, blank=True)
+    updated_on = models.DateTimeField(auto_now=True, blank=True)
     document = models.FileField(upload_to=user_directory_path)
     bank = models.CharField(max_length= 30,choices=BANK_CHOICES, blank=True)
-    transaction_number = models.PositiveIntegerField( blank=True)
+    transaction_number = models.PositiveIntegerField(unique=True, help_text = 'Παρακαλώ εισάγετε τον 9ψήφιο κωδικό συναλλαγής', blank=True)
     status = models.CharField(
         max_length = 20,
         choices = STATUS_CHOICES,

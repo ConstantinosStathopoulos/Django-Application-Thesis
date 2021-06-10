@@ -14,6 +14,7 @@ import ldap
 from decouple import config
 from django_auth_ldap.config import LDAPSearch, LDAPGroupQuery, GroupOfNamesType
 from pathlib import Path
+from django.utils.translation import gettext_noop
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,8 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
+    #extra functionality apps
     'crispy_forms',
+    'django_filters',
+    'ckeditor',
     
     #my apps
     'accounts.apps.AccountsConfig',
@@ -212,9 +216,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'el-GR'
+LANGUAGES = [
+    ('en-gb', gettext_noop('British English')),
+    ('el', gettext_noop('Greek')),]
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Athens'
 
 USE_I18N = True
 
@@ -224,6 +232,8 @@ USE_TZ = True
 
 #login redirect
 LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
