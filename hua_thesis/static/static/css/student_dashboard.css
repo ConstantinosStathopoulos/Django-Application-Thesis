@@ -1,0 +1,12 @@
+button.active.nav-link{
+    background-color: #364968!important;
+    color: white!important
+}
+button.nav-link:hover{
+    background-color:#546581 !important;
+    color: white!important
+}
+
+button.nav-link{
+    background-color: #dfe3eb!important;
+}

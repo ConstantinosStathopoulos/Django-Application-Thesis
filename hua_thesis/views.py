@@ -50,3 +50,7 @@ def newsfeed(request):
     return render(request, "newsfeed.html", context)
 
 
+def contact(request):
+    return render(request, "contact.html", {})
+
+

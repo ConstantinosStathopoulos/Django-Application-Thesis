@@ -74,7 +74,7 @@ class Payment(models.Model):
 
     #how the object will be represented in the admin page
     def __str__(self):
-        return '{self.student}_{self.installment}_{self.date}'.format(self=self)
+        return '{self.student}_{self.installment.name}'.format(self=self)
     
     class Meta:
         verbose_name = 'Πληρωμή Φοιτητή'

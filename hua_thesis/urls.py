@@ -37,6 +37,7 @@ urlpatterns = [
     path('login/', user_login, name='login'),
     path('myprofile/', user_profile, name='profile'),
     path('newsfeed/', views.newsfeed, name='newsfeed'),
+    path('contact/', views.contact, name='contact'),
     path('student/', include('student.urls')),
     path('professor/', include('professor.urls'))
     # path('professor/my_dashboard', professor_dashboard, name='professor_dashboard'),

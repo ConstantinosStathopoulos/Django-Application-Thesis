@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/tables.css' %}">
+<div class="container">
+    <div>
+        <h1 class="h1" align=center>Στοιχεία επικοινωνιας</h1>
+        <p></p>
+        <div class="row">
+            <div class="col">
+                <div class="mapouter">
+                    <div class="gmap_canvas">
+                        <iframe width="617" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=Omirou%209,%20Tavros%20177%2078&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://fmovies-online.net">fmovies</a><br><style>.mapouter{position:relative;text-align:right;height:500px;width:617px;}</style><a href="https://www.embedgooglemap.net">google maps link html</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:617px;}</style>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col">
+                <div class="card text-center mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Τμήμα Πληροφορικής και Τηλεματικής</h5>
+                        <p class="card-text">Το Τμήμα Πληροφορικής και Τηλεματικής βρίσκεται στην διεύθυνση Ομήρου 9 στον Ταύρο.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Ομήρου 9, 177 78, Ταύρος</li>
+                        <li class="list-group-item">Τηλ. +30 210 9549 400 / 402</li>
+                        <li class="list-group-item">Fax +30 210 9549 401</li>
+                        <li class="list-group-item">e-mail: itsec@hua.gr, itpsec@hua.gr</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="https://www.dit.hua.gr/index.php/el/" class="card-link">Σελίδα Τμήματος</a>
+                        <a href="https://www.dit.hua.gr/index.php/el/studies/postgraduate-studies/phd-regulation" class="card-link">Πληροφορίες Μεταπτυχιακού Προγράμματος</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}

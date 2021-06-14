@@ -4,31 +4,39 @@ from hua_thesis.decorators import professor_required
 from .models import *
 from .forms import *
 from django.db.models import Sum
-from .filters import FundingFilter
+from .filters import FundingFilter, SpeechFilter, TravelFilter
 
 # professor`s main dashboard menu view
 @login_required
 @professor_required
 def professor_dashboard(request):
     user = request.user
-    funding_requests = FundingRequisition.objects.filter(user=user).order_by('date')
-    speech_requests = SpeechRequisition.objects.filter(user=user)
-    travel_requests = TravelRequisition.objects.filter(user=user).order_by('date')
+    funding_requests = FundingRequisition.objects.filter(user=user).order_by('-date')
+    speech_requests = SpeechRequisition.objects.filter(user=user).order_by('-date')
+    travel_requests = TravelRequisition.objects.filter(user=user).order_by('-date')
+    
     #general info
-    fund_sum = FundingRequisition.objects.filter(user=user).aggregate(Sum('amount'))['amount__sum']
+    
+    
     num_of_fund_requests =FundingRequisition.objects.filter(user=user).count()
     num_of_speech_requests =SpeechRequisition.objects.filter(user=user).count()
     num_of_travel_requests =TravelRequisition.objects.filter(user=user).count()
-    accepted_funding_requests = travel_requests.filter(status="Αποδεκτή")
-    declined_funding_requests = travel_requests.filter(status="Μη Αποδεκτή")
+    accepted_funding_requests = funding_requests.filter(status="Αποδεκτή")
+    declined_funding_requests = funding_requests.filter(status="Μη Αποδεκτή")
     
+    fund_sum = FundingRequisition.objects.filter(user=user).aggregate(Sum('amount'))['amount__sum']
+    accepted_fund = FundingRequisition.objects.filter(user=user, status="Αποδεκτή").aggregate(Sum('amount'))['amount__sum']
     
     
     #filters
     fundFilter = FundingFilter(request.GET, queryset=funding_requests)
     funding_requests = fundFilter.qs
 
+    speech_filter = SpeechFilter(request.GET, queryset=speech_requests)
+    speech_requests = speech_filter.qs
 
+    travel_filter = TravelFilter(request.GET, queryset=travel_requests)
+    travel_requests = travel_filter.qs
 
     context = {
         'funding_requests':funding_requests,
@@ -36,8 +44,11 @@ def professor_dashboard(request):
         'travel_requests': travel_requests,
 
         'fundFilter': fundFilter,
+        'speech_filter': speech_filter,
+        'travel_filter': travel_filter,
 
         'fund_sum': fund_sum,
+        'accepted_fund': accepted_fund,
         'num_of_fund_requests': num_of_fund_requests,
         'num_of_speech_requests': num_of_speech_requests,
         'num_of_travel_requests': num_of_travel_requests,

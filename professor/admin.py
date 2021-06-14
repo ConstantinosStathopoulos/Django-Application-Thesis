@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.html import format_html
+from django.utils.html import strip_tags
 
 # Register your models here.
 from .models import FundingRequisition, SpeechRequisition, TravelRequisition
@@ -18,6 +20,10 @@ def set_status_denied(modeladmin, request,queryset):
 set_status_denied.short_description = "Deny Selected Requests"
 
 
+
+
+
+
 # classes representation in the admin page, they follow the same name as in models.py followed by A for Admin.
 class SpeechRequisitionA(admin.ModelAdmin):
     list_display = ('user', 'title', 'date','requested_date' ,'description' ,'status')
@@ -26,6 +32,8 @@ class SpeechRequisitionA(admin.ModelAdmin):
     search_fields = ('user__username',)
     actions = [set_status_accepted, set_status_denied]
 
+    
+
 class FundingRequisitionA(admin.ModelAdmin):
     list_display = ('user', 'title', 'date','amount' ,'description' ,'status')
     list_editable = ("status",)
@@ -33,6 +41,11 @@ class FundingRequisitionA(admin.ModelAdmin):
     search_fields = ('user__username',)
     actions = [set_status_accepted, set_status_denied]
 
+    
+    
+
+
+    
 
 class TravelRequisitionA(admin.ModelAdmin):
     list_display = ('user', 'title', 'date','requested_date' ,'description' ,'travel_fees' ,'accommodation_fees', 'registration_fees', 'location', 'status')
@@ -40,6 +53,7 @@ class TravelRequisitionA(admin.ModelAdmin):
     list_filter = ('user', 'location','status', 'date')
     search_fields = ('user__username','location')
 
+    
 
 
 
