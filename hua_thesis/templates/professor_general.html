@@ -10,13 +10,11 @@
                 <div class="card text-center mb-3 rounded" style="width: 18rem;">
                     <div class="card-body">
                         <div class="card-header">
-                            <h4 class="card-title">Ποσά αιτηθέντων χρημάτων</h4>
+                            <h5 class="card-title">Ποσά αιτηθέντων χρημάτων</h5>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-text">Σύνολο:</h5>
-                            <p class="card-text">{{ fund_sum }}</p>
-                            <h5 class="card-text">Αποδεκτά:</h5>
-                            <p class="card-text">{{ accepted_fund }}</p>
+                            <h6 class="card-text">Σύνολο: {{ fund_sum }}</h6>
+                            <h6 class="card-text">Αποδεκτά: {{ accepted_fund }}</h6>
                         </div>
                     </div>
                 </div>
@@ -27,15 +25,12 @@
                 <div class="card text-center mb-3 rounded-3" style="width: 18rem;">
                     <div class="card-body">
                         <div class="card-header">
-                            <h4 class="card-title">Αριθμός Αιτήσεων Χρηματοδότησης</h4>
+                            <h5 class="card-title">Αριθμός Αιτήσεων Χρηματοδότησης</h5>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-text">Σύνολο:</h5>
-                            <p class="card-text">{{ funding_requests.count }}</p>
-                            <h5 class="card-text">Αποδεκτες:</h5>
-                            <p class="card-text">{{ accepted_funding_requests.count }}</p>
-                            <h5 class="card-text">Απορριπτέες:</h5>
-                            <p class="card-text">{{ declined_funding_requests.count }}</p>
+                            <h6 class="card-text">Σύνολο: {{ funding_requests.count }}</h6>
+                            <h6 class="card-text">Αποδεκτες: {{ accepted_funding_requests.count }}</h6>
+                            <h6 class="card-text">Απορριπτέες: {{ declined_funding_requests.count }}</h6>
                         </div>
                     </div>
                 </div>
@@ -46,10 +41,12 @@
                 <div class="card text-center mb-3 rounded-3" style="width: 18rem;">
                     <div class="card-body">
                         <div class="card-header">
-                            <h4 class="card-title">Αριθμός Αιτήσεων Ομιλίας/Σεμιναρίου</h4>
+                            <h5 class="card-title">Αριθμός Αιτήσεων Ομιλίας/Σεμιναρίου</h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">{{ num_of_speech_requests }}</p>
+                            <h6 class="card-text">Σύνολο: {{ speech_requests.count }}</h6>
+                            <h6 class="card-text">Αποδεκτες: {{ accepted_speech_requests.count }}</h6>
+                            <h6 class="card-text">Απορριπτέες: {{ declined_speech_requests.count }}</h6>
                         </div>
                     </div>
                 </div>
@@ -60,10 +57,12 @@
                 <div class="card text-center mb-3 border rounded-3" style="width: 18rem;">
                     <div class="card-body">
                         <div class="card-header">
-                            <h4 class="card-title">Αριθμός Αιτήσεων Μετακίνησης/Ταξιδιού</h4>
+                            <h5 class="card-title">Αριθμός Αιτήσεων Μετακίνησης/Ταξιδιού</h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">{{ num_of_travel_requests }}</p>
+                            <h6 class="card-text">Σύνολο: {{ travel_requests.count }}</h6>
+                            <h6 class="card-text">Αποδεκτες: {{ accepted_travel_requests.count }}</h6>
+                            <h6 class="card-text">Απορριπτέες: {{ declined_travel_requests.count }}</h6>
                         </div>
                     </div>
                 </div>

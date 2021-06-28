@@ -7,67 +7,88 @@
 
 <figure class="text-center">
     <blockquote class="blockquote">
-        <p><h2>Σελίδα Διαχείρησης Αιτήσεων Ακαδημαικού Προσωπικού</h2></p>
+        <p>
+            <h2>Εφαρμογή Ακαδημαϊκού Προσωπικού</h2>
+        </p>
     </blockquote>
     <figcaption class="blockquote-footer">
-        <h5>Καλως Ήρθατε, <cite title="User Title">{{user.last_name}}</cite></h5> 
+        <h5>Καλως Ήρθατε, <cite title="User Title">{{user.last_name}}</cite></h5>
     </figcaption>
 </figure>
 
 <!-- Tabs  -->
 <ul class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true" href="#general">Γενικές Πληροφορίες</button>
+        <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button"
+            role="tab" aria-controls="general" aria-selected="true" href="#general">Γενικές Πληροφορίες</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="funding-tab" data-bs-toggle="tab" data-bs-target="#funding" type="button" role="tab" aria-controls="funding" aria-selected="false" href="#funding">Αιτήσεις Χρηματοδότησης</button>
+        <button class="nav-link" id="funding-tab" data-bs-toggle="tab" data-bs-target="#funding" type="button"
+            role="tab" aria-controls="funding" aria-selected="false" href="#funding">Αιτήσεις Χρηματοδότησης</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="speech-tab" data-bs-toggle="tab" data-bs-target="#speech" type="button" role="tab" aria-controls="speech" aria-selected="false" href="#speech">Αιτήσεις Ομιλίας/Σεμιναρίου</button>
+        <button class="nav-link" id="speech-tab" data-bs-toggle="tab" data-bs-target="#speech" type="button" role="tab"
+            aria-controls="speech" aria-selected="false" href="#speech">Αιτήσεις Ομιλίας/Σεμιναρίου</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="travel-tab" data-bs-toggle="tab" data-bs-target="#travel" type="button" role="tab" aria-controls="travel" aria-selected="false" href="#travel">Αιτήσεις Ταξιδιών/Μετακινήσεων</button>
+        <button class="nav-link" id="travel-tab" data-bs-toggle="tab" data-bs-target="#travel" type="button" role="tab"
+            aria-controls="travel" aria-selected="false" href="#travel">Αιτήσεις Ταξιδιών/Μετακινήσεων</button>
     </li>
 </ul>
 
+
+
+
+
 <!-- Tabs Content -->
 <div class="tab-content" id="nav-tabContent">
+    
+    
+    
     <!-- General tab -->
     <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="nav-general-tab">
         <div class="container">
             {% include "professor_general.html"%}
         </div>
     </div>
+
+
+
+
+
     <!-- Funding Request Tab -->
     <div class="tab-pane fade" id="funding" role="tabpanel" aria-labelledby="funding-tab">
         <div class="card card-body border border-2 cardWrap">
-            <div class="card-title">
-                <br>
-                <h5>Αιτήσεις Χρηματοδότησης</h5>
-                <hr>
-            </div>
             <div class="container-fluid">
-                <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseFilter" role="button" aria-expanded="false" aria-controls="collapseFilter">
-                    Φίλτρα
+                <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseFilter" role="button"
+                    aria-expanded="false" aria-controls="collapseFilter">
+                    <i class="bi bi-funnel"></i> Κριτήρια Αναζήτησης
                 </a>
                 <br>
-                
+
                 <div class="card collapse" id="collapseFilter">
                     <div class="card card-body border border-2">
                         <form class="filterform" method="get">
-                            {{ fundFilter.form }}
-                            <button class="btn btn-primary" type="submit">Αναζήτηση</button>
+                            {{ fundFilter.form|crispy }}
+                            <br>
+                            <button class="btn btn-secondary" type="submit">Αναζήτηση</button>
                         </form>
                     </div>
                 </div>
                 <br>
                 <div class="card card-body border border-2">
-                    <div class= "table-responsive">
+                    <div class="card-title">
+                        <br>
+                        <h5>Αιτήσεις Χρηματοδότησης</h5>
+                        <hr>
+                    </div>
+                    <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Τίτλος</th>
-                                    <th>Ημερομηνία</th>
+                                    <th>Ημερομηνία Δημιουργίας</th>
+                                    <th>Ημερομηνία Ενημέρωσης</th>
                                     <th>Περιγραφή</th>
                                     <th>Ποσό</th>
                                     <th>Κατάσταση</th>
@@ -79,172 +100,258 @@
                                 {% for fr in funding_requests%}
                                 <tr>
                                     <td>{{fr.title}}</td>
-                                    <td>{{fr.date}}</td>
+                                    <td>{{fr.created_on}}</td>
+                                    <td>{{fr.updated_on}}</td>
                                     <td>{{fr.description|safe}}</td>
-                                    <td>{{fr.amount}}</td>
+                                    <td>{{fr.amount}}€</td>
                                     {% if fr.status == 'Υπο Έλεγχο' %}
                                     <td class="table-warning status">{{fr.status}}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{% url 'update_funding_request' fr.id %}">Ενημέρωση</a>
+                                        <a class="btn btn-secondary"
+                                            href="{% url 'update_funding_request' fr.id %}">Ενημέρωση</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger" href="{% url 'delete_funding_request' fr.id %}" >Διαγραφή</a>   
+                                        <a class="btn btn-danger"
+                                            href="{% url 'delete_funding_request' fr.id %}">Διαγραφή</a>
                                     </td>
                                     {% elif fr.status == 'Αποδεκτή' %}
                                     <td class="table-success status">{{fr.status}}</td>
+                                    <td>Καμία διαθέσιμη ενέργεια</td>
+                                    <td></td>
                                     {% else %}
                                     <td class="table-danger status">{{fr.status}}</td>
+                                    <td>Καμία διαθέσιμη ενέργεια</td>
+                                    <td></td>
                                     {% endif %}
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Δεν υπάρχουν διαθέσιμες αιτήσεις.</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
                     <div align="right">
-                        <a class="btn btn-primary btn-md" href="{% url 'create_funding_request' %}">Νέα Αίτηση Χρηματοδότησης</a>
+                        <a class="btn btn-secondary btn-md" href="{% url 'create_funding_request' %}"><i
+                                class="bi bi-plus-circle"></i> Νέα Αίτηση Χρηματοδότησης</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
+
     <!-- Speech Request Tab -->
     <div class="tab-pane fade" id="speech" role="tabpanel" aria-labelledby="speech-tab">
-        <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseFilter" role="button" aria-expanded="false" aria-controls="collapseFilter">
-            Φίλτρα
-        </a>
-        <br>
-        <div class="card collapse" id="collapseFilter">
-            <div class="card card-body border border-2">
-                <form class="filterform" method="get">
-                    {{ speech_filter.form }}
-                    <button class="btn btn-primary" type="submit">Αναζήτηση</button>
-                </form>
-            </div>
-        </div>
-        <br>
-        <div class="card card-body border border-2">
-            <div class="card-title">
+        <div class="card card-body border border-2 cardWrap">
+            <div class="container-fluid">
+                <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseFilter" role="button"
+                    aria-expanded="false" aria-controls="collapseFilter">
+                    <i class="bi bi-funnel"></i> Κριτήρια Αναζήτησης
+                </a>
                 <br>
-                <h5>Αιτήσεις Σεμιναρίων/Ομιλιών</h5>
-                <hr>
-            </div>
-            <div class= "table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Τίτλος</th>
-                            <th>Ημερομηνία Δημ. Αίτησης</th>
-                            <th>Ημερομηνία Εκδήλωσης</th>
-                            <th>Ώρα Εκδήλωσης</th>
-                            <th>Περιγραφή</th>
-                            <th>Κατάσταση</th>
-                            <th>Ενέργειες</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for cr in speech_requests%}
-                        <tr>
-                            <td>{{cr.title}}</td>
-                            <td>{{cr.date}}</td>
-                            <td>{{cr.requested_date}}</td>
-                            <td>{{cr.requested_time}}</td>
-                            <td>{{cr.description|safe}}</td>
-                            {% if cr.status == 'Υπο Έλεγχο' %}
-                                <td class="table-warning status">{{cr.status}}</td>
-                                <td>
-                                    <a class="btn btn-primary" href="{% url 'update_speech_request' cr.id %}">Ενημέρωση</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger" href="{% url 'delete_speech_request' cr.id %}" >Διαγραφή</a>   
-                                </td>
-                                {% elif cr.status == 'Αποδεκτή' %}
-                                <td class="table-success status">{{cr.status}}</td>
-                                {% else %}
-                                <td class="table-danger status">{{cr.status}}</td>
-                                {% endif %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>        
-            </div>       
-            <div align="right">
-                <a class="btn btn-primary btn-md" href="{% url 'create_speech_request' %}">Νέα αίτηση για ομιλία/συνέδριο</a>
+
+                <div class="card collapse" id="collapseFilter">
+                    <div class="card card-body">
+                        <form class="filterform" method="get">
+                            {{ speech_filter.form|crispy }}
+                            <br>
+                            <button class="btn btn-secondary" type="submit">Αναζήτηση</button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+
+                <div class="card card-body border border-2">
+                    <div class="card-title">
+                        <br>
+                        <h5>Αιτήσεις Σεμιναρίων/Ομιλιών</h5>
+                        <hr>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Τίτλος</th>
+                                    <th>Ημερομηνία Δημιουργίας</th>
+                                    <th>Ημερομηνία Ενημέρωσης</th>
+                                    <th>Ημερομηνία Εκδήλωσης</th>
+                                    <th>Ώρα Εκδήλωσης</th>
+                                    <th>Περιγραφή</th>
+                                    <th>Κατάσταση</th>
+                                    <th>Ενέργειες</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cr in speech_requests%}
+                                <tr>
+                                    <td>{{cr.title}}</td>
+                                    <td>{{cr.created_on}}</td>
+                                    <td>{{cr.updated_on}}</td>
+                                    <td>{{cr.requested_date}}</td>
+                                    <td>{{cr.requested_time}}</td>
+                                    <td>{{cr.description|safe}}</td>
+                                    {% if cr.status == 'Υπο Έλεγχο' %}
+                                    <td class="table-warning status">{{cr.status}}</td>
+                                    <td>
+                                        <a class="btn btn-secondary"
+                                            href="{% url 'update_speech_request' cr.id %}">Ενημέρωση</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger"
+                                            href="{% url 'delete_speech_request' cr.id %}">Διαγραφή</a>
+                                    </td>
+                                    {% elif cr.status == 'Αποδεκτή' %}
+                                    <td class="table-success status">{{cr.status}}</td>
+                                    <td>Καμία Διαθέσιμη Ενέργεια</td>
+                                    <td></td>
+                                    {% else %}
+                                    <td class="table-danger status">{{cr.status}}</td>
+                                    <td>Καμία Διαθέσιμη Ενέργεια</td>
+                                    <td></td>
+                                    {% endif %}
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Δεν υπάρχουν διαθέσιμες αιτήσεις.</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div align="right">
+                        <a class="btn btn-secondary btn-md" href="{% url 'create_speech_request' %}"><i
+                                class="bi bi-plus-circle"></i> Νέα αίτηση για ομιλία/συνέδριο</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+
+
+
+
     <!-- Travel Request Tab -->
     <div class="tab-pane fade" id="travel" role="tabpanel" aria-labelledby="travel-tab">
-        <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseFilter" role="button" aria-expanded="false" aria-controls="collapseFilter">
-            Φίλτρα
-        </a>
-        <br>
-        <div class="card collapse" id="collapseFilter">
-            <div class="card card-body">
-                <form class="filterform" method="get">
-                    {{ travel_filter.form }}
-                    <button class="btn btn-primary" type="submit">Αναζήτηση</button>
-                </form>
-            </div>
-        </div>
-        <br>
-        <div class="card card-body">
-            <div class="card-title">
+        <div class="card card-body border border-2 cardWrap">
+            <div class="container-fluid">
+                <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseFilter" role="button"
+                    aria-expanded="false" aria-controls="collapseFilter">
+                    <i class="bi bi-funnel"></i> Κριτήρια Αναζήτησης
+                </a>
                 <br>
-                <h5>Αιτήσεις Μετακινήσεων/Ταξιδιών</h5>
-                <hr>
-            </div>
-            <div class= "table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Τίτλος</th>
-                            <th>Ημερομηνία Δημ. Αίτησης</th>
-                            <th>Ημερομηνία Ταξιδιού</th>
-                            <th>Περιγραφή</th>
-                            <th>Έξοδα Μετακίνησης</th>
-                            <th>Έξοδα Εγγραφής</th>
-                            <th>Έξοδα Διαμονής</th>
-                            <th>Τοποθεσία</th>
-                            <th>Κατάσταση</th>
-                            <th>Ενέργειες</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for tr in travel_requests%}
-                        <tr>
-                            <td>{{tr.title}}</td>
-                            <td>{{tr.date}}</td>
-                            <td>{{tr.requested_date}}</td>
-                            <td>{{tr.description|safe}}</td>
-                            <td>{{tr.travel_fees}}</td>
-                            <td>{{tr.registration_fees}}</td>
-                            <td>{{tr.accommodation_fees}}</td>
-                            <td>{{tr.location}}</td>
-                            {% if tr.status == 'Υπο Έλεγχο' %}
-                                <td  class="table-warning status">{{tr.status}}</td>
-                                <td>
-                                    <a class="btn btn-primary" href="{% url 'update_travel_request' tr.id %}">Ενημέρωση</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger" href="{% url 'delete_travel_request' tr.id %}" >Διαγραφή</a>   
-                                </td>
-                                {% elif tr.status == 'Αποδεκτή' %}
-                                <td class="table-success status">{{tr.status}}</td>
-                                <td>Μη Διαθέσιμο</td>
-                                <td></td>
-                                {% else %}
-                                <td class="table-danger status">{{tr.status}}</td>
-                                <td>Μη Διαθέσιμο</td>
-                                {% endif %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>        
-            </div>       
-            <div align="right">
-                <a class="btn btn-primary btn-md" href="{% url 'create_travel_request' %}">Νέα αίτηση για μετακίνηση</a>
+
+                <div class="card collapse" id="collapseFilter">
+                    <div class="card card-body">
+                        <form class="filterform" method="get">
+                            {{ travel_filter.form|crispy }}
+                            <br>
+                            <button class="btn btn-secondary" type="submit">Αναζήτηση</button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <div class="card card-body border border-2">
+                    <div class="card-title">
+                        <br>
+                        <h5>Αιτήσεις Μετακινήσεων / Ταξιδιών</h5>
+                        <hr>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Τίτλος</th>
+                                    <th>Ημερομηνία Δημιουργίας</th>
+                                    <th>Ημερομηνία Ενημέρωσης</th>
+                                    <th>Ημερομηνία Ταξιδιού</th>
+                                    <th>Περιγραφή</th>
+                                    <th>Έξοδα Μετακίνησης</th>
+                                    <th>Έξοδα Εγγραφής</th>
+                                    <th>Έξοδα Διαμονής</th>
+                                    <th>Τοποθεσία</th>
+                                    <th>Κατάσταση</th>
+                                    <th>Ενέργειες</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for tr in travel_requests%}
+                                <tr>
+                                    <td>{{tr.title}}</td>
+                                    <td>{{tr.created_on}}</td>
+                                    <td>{{tr.updated_on}}</td>
+                                    <td>{{tr.requested_date}}</td>
+                                    <td>{{tr.description|safe}}</td>
+                                    <td>{{tr.travel_fees}}€</td>
+                                    <td>{{tr.registration_fees}}€</td>
+                                    <td>{{tr.accommodation_fees}}€</td>
+                                    <td>{{tr.location}}</td>
+                                    {% if tr.status == 'Υπο Έλεγχο' %}
+                                    <td class="table-warning status">{{tr.status}}</td>
+                                    <td>
+                                        <a class="btn btn-secondary"
+                                            href="{% url 'update_travel_request' tr.id %}">Ενημέρωση</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger"
+                                            href="{% url 'delete_travel_request' tr.id %}">Διαγραφή</a>
+                                    </td>
+                                    {% elif tr.status == 'Αποδεκτή' %}
+                                    <td class="table-success status">{{tr.status}}</td>
+                                    <td>Καμία Διαθέσιμη Ενέργεια</td>
+                                    <td></td>
+                                    {% else %}
+                                    <td class="table-danger status">{{tr.status}}</td>
+                                    <td>Καμία Διαθέσιμη Ενέργεια</td>
+                                    {% endif %}
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Δεν υπάρχουν διαθέσιμες αιτήσεις.</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div align="right">
+                        <a class="btn btn-secondary btn-md" href="{% url 'create_travel_request' %}"><i
+                                class="bi bi-plus-circle"></i> Νέα αίτηση για μετακίνηση</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

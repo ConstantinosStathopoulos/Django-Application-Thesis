@@ -1,13 +1,34 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/tables.css' %}">
 <div class="container">
     <div>
-        <h1 class="h1" align=center>Στοιχεία επικοινωνιας</h1>
+        <h1 class="h1" align=center style="color: #364968;">Στοιχεία επικοινωνιας</h1>
         <p></p>
         <div class="row">
+            <div class="col">
+                <div class="card text-center mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Τμήμα Πληροφορικής και Τηλεματικής</h5>
+                        <p class="card-text">Το Τμήμα Πληροφορικής και Τηλεματικής βρίσκεται στην διεύθυνση Ομήρου 9 στον Ταύρο.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="bi bi-map"></i> Ομήρου 9, 177 78, Ταύρος</li>
+                        <li class="list-group-item"><i class="bi bi-clock-history"></i> Δευτ - Παρ 10:00 - 13:00</li>
+                        <li class="list-group-item"><i class="bi bi-telephone"></i> Τηλ. +30 210 9549 400 / 402</li>
+                        <li class="list-group-item">Fax +30 210 9549 401</li>
+                        <li class="list-group-item"><i class="bi bi-envelope"></i> e-mail: itsec@hua.gr, itpsec@hua.gr</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="https://www.dit.hua.gr/index.php/el/" class="btn btn-secondary">Σελίδα Τμήματος</a>
+                        <br>
+                        <a href="https://www.dit.hua.gr/index.php/el/studies/postgraduate-studies/phd-regulation" class="btn btn-secondary">Πληροφορίες Μεταπτυχιακού Προγράμματος</a>
+                    </div>
+                </div>
+            </div>
             <div class="col">
                 <div class="mapouter">
                     <div class="gmap_canvas">
@@ -16,28 +37,19 @@
                 </div>
             </div>
             
-            <div class="col">
-                <div class="card text-center mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Τμήμα Πληροφορικής και Τηλεματικής</h5>
-                        <p class="card-text">Το Τμήμα Πληροφορικής και Τηλεματικής βρίσκεται στην διεύθυνση Ομήρου 9 στον Ταύρο.</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Ομήρου 9, 177 78, Ταύρος</li>
-                        <li class="list-group-item">Τηλ. +30 210 9549 400 / 402</li>
-                        <li class="list-group-item">Fax +30 210 9549 401</li>
-                        <li class="list-group-item">e-mail: itsec@hua.gr, itpsec@hua.gr</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="https://www.dit.hua.gr/index.php/el/" class="card-link">Σελίδα Τμήματος</a>
-                        <a href="https://www.dit.hua.gr/index.php/el/studies/postgraduate-studies/phd-regulation" class="card-link">Πληροφορίες Μεταπτυχιακού Προγράμματος</a>
-                    </div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="card-body text-center text-white">
+                <h1>Επικοινωνήστε μαζί μας</h1>
+                <form method="post">
+                {% csrf_token %}
+                    {{form|crispy}}
+                    <br>
+                    <button class="btn btn-secondary" type="submit">Αποστολή</button>
+                </form>
             </div>
-            
         </div>
     </div>
-
 </div>
 
 

@@ -22,8 +22,11 @@ body {
 }
 
 .navbar-nav .nav-link  {
-    color: white;
+    color: white ;
 }
+nav .navbar-nav li a{
+  color: white !important;
+  }
 
 li a:hover {
   background-color: #4875af;
@@ -36,9 +39,8 @@ li a:hover {
 }
 
 
-
 .nav-item > a:hover {
-  background-color: #7598c7;
+  background-color: #71717191;
   color: black;
   font-weight: bold;
 }
@@ -113,3 +115,4 @@ span navbar-toggler-icon:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: #8b8e92; 
 }
+

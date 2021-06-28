@@ -66,6 +66,9 @@ class TravelRequisitionForm(ModelForm):
         model = TravelRequisition
         fields = ['title', 'requested_date', 'travel_fees', 'accommodation_fees', 'registration_fees', 'location','description']
 
+
+        # requested_date = forms.DateField(widget=forms.DateInput(format= '%d/%m/%Y'),input_formats=('%d/%m/%Y', ))
+
         labels = {
         "title": "Τίτλος Αίτησης",
         "requested_date": "Αιτούμενη Ημερομηνία/Ώρα",
@@ -78,6 +81,14 @@ class TravelRequisitionForm(ModelForm):
 
         widgets = {
         'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Τίτλος της αίτησης'}),
-        'requested_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'},format= ('%d/%m/%Y')),
+        'requested_date': forms.DateInput(format= ('%d/%m/%Y'),attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Επιλέξτε ημερομηνία'}),
+        'travel_fees': forms.NumberInput (attrs={'class': 'form-control', 'placeholder': 'Έξοδα Ταξιδιού'}),
+        'accommodation_fees': forms.NumberInput (attrs={'class': 'form-control', 'placeholder': 'Έξοδα Διαμονής'}),
+        'registration_fees': forms.NumberInput (attrs={'class': 'form-control', 'placeholder': 'Έξοδα Εγγραφής'}),
+        'location': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Τοποθεσία(Πόλη,Χώρα)'}),
         'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Κείμενο περιγραφής της μετακίνησης για επαγγελματικό ταξίδι.'}),
+
         }
+
+
+        

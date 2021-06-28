@@ -1,6 +1,7 @@
 button.active.nav-link{
     background-color: #364968!important;
-    color: white!important
+    color: white!important;
+    font-weight: bold;
 }
 button.nav-link:hover{
     background-color:#546581 !important;
@@ -10,3 +11,13 @@ button.nav-link:hover{
 .filterform {
     color: white;
 }
+
+h2 {
+    color: #364968;
+}
+
+thead th {
+    font-size: 1.2em;
+    padding: 1px !important;
+    height: 15px;
+  }

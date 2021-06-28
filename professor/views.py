@@ -11,9 +11,9 @@ from .filters import FundingFilter, SpeechFilter, TravelFilter
 @professor_required
 def professor_dashboard(request):
     user = request.user
-    funding_requests = FundingRequisition.objects.filter(user=user).order_by('-date')
-    speech_requests = SpeechRequisition.objects.filter(user=user).order_by('-date')
-    travel_requests = TravelRequisition.objects.filter(user=user).order_by('-date')
+    funding_requests = FundingRequisition.objects.filter(user=user).order_by('-created_on')
+    speech_requests = SpeechRequisition.objects.filter(user=user).order_by('-created_on')
+    travel_requests = TravelRequisition.objects.filter(user=user).order_by('-created_on')
     
     #general info
     
@@ -23,7 +23,12 @@ def professor_dashboard(request):
     num_of_travel_requests =TravelRequisition.objects.filter(user=user).count()
     accepted_funding_requests = funding_requests.filter(status="Αποδεκτή")
     declined_funding_requests = funding_requests.filter(status="Μη Αποδεκτή")
-    
+    accepted_speech_requests = speech_requests.filter(status="Αποδεκτή")
+    declined_speech_requests = speech_requests.filter(status="Μη Αποδεκτή")
+    accepted_travel_requests = travel_requests.filter(status="Αποδεκτή")
+    declined_travel_requests = travel_requests.filter(status="Μη Αποδεκτή")
+
+
     fund_sum = FundingRequisition.objects.filter(user=user).aggregate(Sum('amount'))['amount__sum']
     accepted_fund = FundingRequisition.objects.filter(user=user, status="Αποδεκτή").aggregate(Sum('amount'))['amount__sum']
     
@@ -54,6 +59,11 @@ def professor_dashboard(request):
         'num_of_travel_requests': num_of_travel_requests,
         'accepted_funding_requests': accepted_funding_requests,
         'declined_funding_requests': declined_funding_requests,
+        'accepted_speech_requests' : accepted_speech_requests,
+        'declined_speech_requests' : declined_speech_requests,
+        'accepted_travel_requests' : accepted_travel_requests,
+        'declined_travel_requests' : declined_travel_requests,
+
     }
 
     

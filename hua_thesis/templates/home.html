@@ -1,15 +1,31 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'css/site.css' %}">
 <div class="container">
-    <div>
-        <h1 class="h1" align=center>Σελίδα Μεταπτυχιακού Προγράμματος Χαροκοπείου Πανεπιστημίου Αθηνών</h1>
-        <p>Αυτή η σελίδα αφορά φοιτητές και καθηγητές του μεταπτυχιακού προγράμματος σπουδών. Απο την πλατφόρμα δίνεται η δυνατότητα να γίνουν αιτήσεις, εξόφληση οφειλών καθώς και ενημέρωση για το πρόγραμμα σπουδών</p>
-
-
+    <div class="row">
+        <figure class="text-center">
+            <blockquote class="blockquote">
+                <p><h2>Εφαρμογή Μεταπτυχιακού Προγράμματος</h2></p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                <h5>Τμήματος Πληροφορικής και Τηλεματικής</cite></h5> 
+            </figcaption>
+        </figure>
     </div>
-
+    <div class="row">
+        <div class="col">
+            <img class="rounded float-left" src="https://dit.hua.gr/images/dit/msc2.JPG" class="d-block w-100" alt="...">
+        </div>
+        <div class="col">
+            <h4>Καλώς ήλθατε στην σελίδα του Μεταπτυχιακού Προγράμματος Σπουδών του τμήματος Πληροφορικής και Τηλεματικής.</h4>
+            <br>
+            <p>Εδώ μπορείτε να ενημερώνεστε για νέα του τμήματος, και με την σύνδεσή σας με τα προσωπικά σας στοιχεία, μπορείτε να αξιοποιήσετε τις υπηρεσίες για τα μέλη και τους σπουδαστές του ΠΜΣ.</p>
+        </div>
+    </div>
+        
+        
 </div>
 
 

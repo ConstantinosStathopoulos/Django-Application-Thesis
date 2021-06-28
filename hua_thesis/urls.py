@@ -31,6 +31,9 @@ from hua_thesis.views import (
 
 
 urlpatterns = [
+    path('jet/', include('jet.urls', 'jet')),#Django Jet URLs
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),#Django Jet Dashboard URLs
+    path('captcha/', include('captcha.urls')),
     path('admin/', admin.site.urls, name='admin'),
     path('', views.home, name='home'),
     path('logout/', user_logout, name='logout'),
@@ -38,6 +41,7 @@ urlpatterns = [
     path('myprofile/', user_profile, name='profile'),
     path('newsfeed/', views.newsfeed, name='newsfeed'),
     path('contact/', views.contact, name='contact'),
+    path('contact/success/', views.success, name='success'),
     path('student/', include('student.urls')),
     path('professor/', include('professor.urls'))
     # path('professor/my_dashboard', professor_dashboard, name='professor_dashboard'),

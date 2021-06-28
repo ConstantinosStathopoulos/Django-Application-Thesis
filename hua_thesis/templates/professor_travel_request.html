@@ -4,17 +4,19 @@
 {% load crispy_forms_tags %}
 
 <figure class="text-center">
-<h1 class="h1">Δημιουργία Νέας Αίτησης για Μετακίνηση/Ταξίδι</h1>
+    <h1 class="h1">Δημιουργία Νέας Αίτησης για Μετακίνηση/Ταξίδι</h1>
 </figure>
 
-<br/><br/>
+<br /><br />
 
 <div class="container-lg">
-    <form method="POST" >
+    <form method="POST">
         {% csrf_token %}
         {{ form.media }}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-primary">Καταχώρηση</button>
+        <br>
+        <a type="button" class="btn btn-danger" href="{% url 'professor_dashboard' %}">Ακύρωση</a>
+        <button type="submit" class="btn btn-secondary">Καταχώρηση</button>
     </form>
 </div>
 

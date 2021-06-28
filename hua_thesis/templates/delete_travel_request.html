@@ -4,20 +4,20 @@
 
 
 
-
 <div class="container-lg">
     <div class="card text-center border border-2">
         <div class="card-header">
-            Θέλετε να διαγράψετε την αίτηση "{{fund_request}}"
+            Θέλετε να διαγράψετε την αίτηση "{{travel_request}}"
         </div>
         <div class="card-body">
-            <form action="{% url 'delete_funding_request' fund_request.id %}" method="POST" >
+            <form action="{% url 'delete_travel_request' travel_request.id %}" method="POST" >
                 {% csrf_token %}
                 <a type="button" class="btn btn-secondary" href="{% url 'professor_dashboard' %}">Ακύρωση</a>
-        
-                <input type="submit" value="Διαγραφή" class="btn btn-danger">
+    
+                <button type="submit" class="btn btn-danger">Διαγραφή</button>
             </form>
         </div>
+        
     </div>
 </div>
 

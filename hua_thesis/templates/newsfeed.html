@@ -7,54 +7,58 @@
 
 <br>
 <div class="header">
-    <h1 class="h1" align=center> Ενημερώσεις για Μεταπτυχιακούς Φοιτητές </h1>
+    <h1 class="h1" align=center> Ανακοινώσεις </h1>
     <hr>
 </div>
 
-<div class="container-sm">
-    <div class="row justify-content-evenly">
-        {% for a in announcement %}
-        <div class="col-lg-3">
-            <div class="cards">
-                <div class="card  text-center mb-3" style="width: 18rem; height:15rem;">
-                    <div class="card-body rounded">
-                            <h2 class="card-title">{{a.title}}</h2>
-                            <div>
-                                <p class="card-text"><small class="text-muted">Αναρτήθηκε στις: {{a.date}}</small></p>
-                            </div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#id{{ a.id }}" data-bs-id="id{{ a.id }}">
-                                Διαβάστε Περισσότερα
-                            </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="id{{ a.id }}" tabindex="-1"  data-bs-backdrop="modal" aria-hidden="true" aria-labelledby="id{{ a.id }}Label" >
-                                <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="id{{ a.id }}Label">{{a.title}}</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Κλείσιμο"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>{{a.text|safe}}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <div>
-                                                <p class="card-text"><small class="text-muted">Αναρτήθηκε στις: {{a.date}}</small></p>
-                                            </div>
-                                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Κλείσιμο</button>
-                                        </div>
+<div class="d-flex justify-content-center flex-column bd-highlight mb-6">
+    
+        <div class="p-6  bd-highlight">
+            {% for a in announcement %}
+            <div class="card m-4">
+                <div class="card-body rounded">
+                    <h3 class="card-title">{{a.title}}</h3>
+                    <div class="text-white">
+                        <p class="font-italic"><small class="font-italic">Αναρτήθηκε στις: {{a.date}}</small></p>
+                        <p>{{a.text|truncatewords:30|safe}}</p>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#id{{ a.id }}" data-bs-id="id{{ a.id }}">
+                        Διαβάστε Περισσότερα
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="id{{ a.id }}" tabindex="-1"  data-bs-backdrop="modal" aria-hidden="true" aria-labelledby="id{{ a.id }}Label" >
+                        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="id{{ a.id }}Label">{{a.title}}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Κλείσιμο"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{a.text|safe}}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <div>
+                                        <p class="card-text"><small class="text-muted">Αναρτήθηκε στις: {{a.date}}</small></p>
                                     </div>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Κλείσιμο</button>
                                 </div>
                             </div>
-                            <hr>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
-            <br>
+            {% endfor %}
+            <hr>
         </div>
-        {% endfor %}
-    </div>
+        
+        
+    
 </div>
+        
+ 
 
 
 {% endblock %}

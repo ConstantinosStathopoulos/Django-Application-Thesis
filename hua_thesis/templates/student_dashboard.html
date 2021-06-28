@@ -1,56 +1,71 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
+
 
 
 <link rel="stylesheet" href="{% static 'css/student_dashboard.css' %}">
 
-<figure class="text-center" >
-    <div>
-        <h1>Κεντρική Σελίδα Φοιτητών</h1>
-        <h1>Καλως Ήρθατε, {{user.last_name}}</h1>
-    </div>
+<figure class="text-center">
+    <blockquote class="blockquote">
+        <p>
+            <h2>Σελίδα Διαχείρησης Οικονομικών Υποχρεώσεων Φοιτητή</h2>
+        </p>
+    </blockquote>
+    <figcaption class="blockquote-footer">
+        <h5>Καλως Ήρθατε, <cite title="User Title">{{user.last_name}}</cite></h5>
+    </figcaption>
 </figure>
 
 
 <!-- Tabs  -->
-<ul class="nav nav-tabs" id="nav-tab" role="tablist">
+<ul class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true" href="#general">Γενικές Πληροφορίες</button>
+        <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button"
+            role="tab" aria-controls="general" aria-selected="true" href="#general">Γενικές Πληροφορίες</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="payments-tab" data-bs-toggle="tab" data-bs-target="#payments" type="button" role="tab" aria-controls="payments" aria-selected="false" href="#payments">Πληρωμές Φοιτητή</button>
+        <button class="nav-link" id="payments-tab" data-bs-toggle="tab" data-bs-target="#payments" type="button"
+            role="tab" aria-controls="payments" aria-selected="false" href="#payments">Πληρωμές Φοιτητή</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="installments-tab" data-bs-toggle="tab" data-bs-target="#installments" type="button" role="tab" aria-controls="installments" aria-selected="false" href="#installments">Δοσολόγιο</button>
+        <button class="nav-link" id="installments-tab" data-bs-toggle="tab" data-bs-target="#installments" type="button"
+            role="tab" aria-controls="installments" aria-selected="false" href="#installments">Δοσολόγιο</button>
     </li>
 </ul>
 
 
 <!-- Tabs Content -->
 <div class="tab-content" id="nav-tabContent">
+
+
+
+
     <!-- General tab -->
     <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="nav-general-tab">
         <br>
         {% include "student_general.html"%}
     </div>
+
+
+
+
+
+
     <!-- Payments Tab -->
     <div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="payments-tab">
-        <div class="card card-body">
-            <h5>Πληρωμές Φοιτητή</h5>
-            <hr>
+        <div class="card card-body border border-2 cardWrap">
             <div class="container-fluid">
-                <div class="card">
-                    <div class="card card-body border border-2">
-                        <form method="get">
-                            {{ paymentFilter.form }}
-                            <button class="btn btn-primary" type="submit">Αναζήτηση</button>
-                        </form>
-                    </div>
-                </div>
                 <br>
+
                 <div class="card card-body border border-2">
-                    <div class= "table-responsive">
+                    <div class="card-title">
+                        <br>
+                        <h5>Πληρωμές Φοιτητή</h5>
+                        <hr>
+                    </div>
+                    <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -69,24 +84,42 @@
                                 {% for payment in student_payments%}
                                 <tr>
                                     <td>{{payment.installment}}</td>
-                                        <td>{{payment.created_on}}</td>
-                                        <td>{{payment.updated_on}}</td>
-                                        <td>{{payment.bank}}</td>
-                                        <td>{{payment.transaction_number}}</td>
-                                        <td><a href="{{payment.document.url}}" target="_blank">Προβολή</a></td>
+                                    <td>{{payment.created_on}}</td>
+                                    <td>{{payment.updated_on}}</td>
+                                    <td>{{payment.bank}}</td>
+                                    <td>{{payment.transaction_number}}</td>
+                                    <td><a href="{{payment.document.url}}" target="_blank"><button class="btn btn-secondary">Προβολή</button></a></td>
                                     {% if payment.status == 'Υπο Έλεγχο' %}
                                     <td class="table-warning">{{payment.status}}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{% url 'update_payment' payment.id %}">Ενημέρωση</a>
+                                        <a class="btn btn-primary"
+                                            href="{% url 'update_payment' payment.id %}">Ενημέρωση</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger" href="{% url 'delete_payment' payment.id %}" >Διαγραφή</a>   
+                                        <a class="btn btn-danger"
+                                            href="{% url 'delete_payment' payment.id %}">Διαγραφή</a>
                                     </td>
                                     {% elif payment.status == 'Αποδεκτή' %}
                                     <td class="table-success">{{payment.status}}</td>
+                                    <td>Καμία Διαθέσιμη Ενέργεια</td>
+                                    <td></td>
                                     {% else %}
                                     <td class="table-danger">{{payment.status}}</td>
+                                    <td>Καμία Διαθέσιμη Ενέργεια</td>
+                                    <td></td>
                                     {% endif %}
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Δεν υπάρχουν διαθέσιμες πληρωμές.</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -97,15 +130,18 @@
         </div>
     </div>
 
-    
+
     <!-- Installments Tab -->
     <div class="tab-pane fade" id="installments" role="tabpanel" aria-labelledby="installments-tab">
         <div class="card card-body">
-            <h5>Δοσολόγιο</h5>
-            <hr>
             <div class="container-fluid">
                 <div class="card card-body border border-2">
-                    <div class= "table-responsive">
+                    <div class="card-title">
+                        <br>
+                        <h5>Δοσολόγιο</h5>
+                        <hr>
+                    </div>
+                    <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -121,14 +157,22 @@
                                     <td>{{installment.name}}</td>
                                     <td>{{installment.amount}}</td>
                                     <td>{{installment.due_date}}</td>
-                                    <td><a class="btn btn-success btn-md btn-block"  href="{% url 'pay_installment' installment.id %}">Πληρωμή</a></td>
+                                    <td><a class="btn btn-success btn-md btn-block"
+                                            href="{% url 'pay_installment' installment.id %}">Πληρωμή</a></td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Δεν υπάρχουν διαθέσιμες δόσεις.</td>
+                                    <td></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
-                        </table>        
+                        </table>
                     </div>
                 </div>
-            </div>       
+            </div>
         </div>
     </div>
 </div>

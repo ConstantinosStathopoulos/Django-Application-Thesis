@@ -6,14 +6,14 @@ from .models import Payment, PaymentInstallment
 
 # accept payment
 def set_status_accepted(modeladmin, request,queryset):
-    queryset.update(status = 'Accepted')
+    queryset.update(status = 'Αποδεκτή')
 
 #Action Description
 set_status_accepted.short_description = "Αποδοχή επιλεγμένων Πληρωμών"
 
 #deny payment
 def set_status_denied(modeladmin, request,queryset):
-    queryset.update(status = 'Denied')
+    queryset.update(status = 'Μη Αποδεκτή')
 
 set_status_denied.short_description = "Απόριψη επιλεγμένων Πληρωμών"
 

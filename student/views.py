@@ -5,8 +5,6 @@ from .models import *
 from .forms import *
 from accounts.models import Student
 from django.db.models import Sum
-from .filters import PaymentFilter
-
 
 # Create your views here.
 
@@ -18,19 +16,17 @@ def student_dashboard(request):
     
     student = request.user.profile.student
     #student payments
-    student_payments = Payment.objects.filter(student=student)
+    student_payments = Payment.objects.filter(student=student).order_by('-created_on')
     #all the installments of the student, depending on program duration
     all_installments = PaymentInstallment.objects.filter(program_duration=student.program_duration, postgrad_year=student.postgrad_year).exclude(payment__in=student_payments, payment__status='Αποδεκτή').exclude(payment__in=student_payments, payment__status='Υπο Έλεγχο').order_by('due_date')
     #program price
-    postgrad_price = all_installments.aggregate(Sum('amount'))['amount__sum']
+    postgrad_price = PaymentInstallment.objects.filter(program_duration=student.program_duration, postgrad_year=student.postgrad_year).aggregate(Sum('amount'))['amount__sum']
     #paid amount
     paid_sum = PaymentInstallment.objects.filter(program_duration=student.program_duration, payment__in=student_payments).aggregate(Sum('amount'))['amount__sum']
     accepted_student_payments = Payment.objects.filter(student=student,status="Αποδεκτή")
+    accepted_student_payments_sum = PaymentInstallment.objects.filter(program_duration=student.program_duration, payment__in=student_payments, payment__status="Αποδεκτή").aggregate(Sum('amount'))['amount__sum']
     declined_student_payments = Payment.objects.filter(student=student,status="Μη Αποδεκτή")
-
-    #filters
-    paymentFilter = PaymentFilter(request.GET, queryset=student_payments)
-    student_payments = paymentFilter.qs
+    pending_student_payments = Payment.objects.filter(student=student,status="Υπο Έλεγχο")
 
 
 
@@ -38,12 +34,12 @@ def student_dashboard(request):
         'student_payments':student_payments,
         'all_installments':all_installments,
 
-        'pfilter': paymentFilter,
-
         'postgrad_price':postgrad_price,
         'paid_sum':paid_sum,
         'accepted_student_payments': accepted_student_payments,
+        'accepted_student_payments_sum': accepted_student_payments_sum,
         'declined_student_payments': declined_student_payments,
+        'pending_student_payments': pending_student_payments,
         
     }
 

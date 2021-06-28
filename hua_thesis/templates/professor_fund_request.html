@@ -5,22 +5,21 @@
 
 <figure class="text-center">
     <h1 class="h1">Δημιουργία Νέας Αίτησης για Χρηματοδότηση</h1>
-    </figure>
-    
-    <br/><br/>
-    
-    <div class="container-lg">
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.media }}
-            {{ form|crispy }}
-            <br>
-            <button class="btn btn-primary">Καταχώρηση</button>
-        </form>
-        {{ form.errors }}
-    </div>
+</figure>
 
-    
+<br /><br />
+
+<div class="container-lg">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <br>
+        <a type="button" class="btn btn-danger" href="{% url 'professor_dashboard' %}">Ακύρωση</a>
+        <button type="submit" class="btn btn-secondary">Καταχώρηση</button>
+    </form>
+    {{ form.errors }}
+</div>
 
 
 
