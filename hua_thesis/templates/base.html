@@ -1,4 +1,6 @@
 {% load static %}
+{% load pwa %}
+
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
@@ -9,6 +11,7 @@
     {% block head_meta %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% progressive_web_app_meta %}
     {% endblock head_meta %}
 
     {% block head_css %}
@@ -31,7 +34,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">
                     <div class="img-hover-zoom">
-                        <img class="img-responsive" src="{% static "images/logo.png" %}">
+                        <img class="img-responsive" src="{% static 'images/logo.png' %}">
                         <img class="img-responsive" src="https://dit.hua.gr/images/dit/dit-logo.png">
                     </div>
                 </a>

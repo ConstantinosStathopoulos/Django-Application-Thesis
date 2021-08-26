@@ -126,7 +126,7 @@ def update_funding_request(request, pk):
     context = {
         'form': form
     }
-    return render(request, 'professor_fund_request.html', context)
+    return render(request, 'professor_fund_request_update.html', context)
 
 
 
@@ -169,7 +169,7 @@ def update_speech_request(request, pk):
     context = {
         'form': form
     }
-    return render(request, 'professor_speech_request.html', context)
+    return render(request, 'professor_speech_request_update.html', context)
 
 
 
@@ -228,7 +228,7 @@ def update_travel_request(request, pk):
     context = {
         'form': form
     }
-    return render(request, 'professor_travel_request.html', context)
+    return render(request, 'professor_travel_request_update.html', context)
 
 
 

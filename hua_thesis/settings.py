@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'django_filters',
     'ckeditor',
     'captcha',
+    'pwa',
+    'import_export',
+    'django_extensions',
     
     
     #my apps
@@ -166,10 +169,7 @@ AUTH_LDAP_MIRROR_GROUPS = True  # Will sync ldap groups to django, if not exist
 # ) 
 ## ? I will try to limit access with deny_group, until the testing users are in the apropriate groups
 # AUTH_LDAP_DENY_GROUP = (
-#     LDAPGroupQuery("cn=und_die,ou=Groups,dc=hua,dc=gr")
-#     # | LDAPGroupQuery("cn=und_dit,ou=Groups,dc=hua,dc=gr")
-#     | LDAPGroupQuery("cn=und_eco,ou=Groups,dc=hua,dc=gr")
-#     | LDAPGroupQuery("cn=und_geo,ou=Groups,dc=hua,dc=gr")
+#     LDAPGroupQuery("cn=und_dit,ou=Groups,dc=hua,dc=gr")
 # )
 
 
@@ -298,3 +298,43 @@ JET_THEMES = [
         'title': 'Light Gray'
     }
 ]
+
+### PWA configuration
+
+PWA_APP_NAME = 'HUA Postgrad'
+PWA_APP_DESCRIPTION = "Application for postgraduate program."
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/dit-logo-icon.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/images/dit-logo-icon.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/dit-logo.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
+
+
+# Graphs settings from django_extensions
+
+GRAPH_MODELS = {
+    'all_applications': True,
+    'group_models': True,
+}

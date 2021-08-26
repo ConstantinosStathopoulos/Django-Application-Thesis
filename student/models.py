@@ -13,7 +13,7 @@ DUR_CHOICES = (
 )
 
 YEAR_CHOICES = [
-        (r,r) for r in range(2006, datetime.date.today().year+1)
+        (r,r) for r in range(2006, datetime.date.today().year+2)
     ]
 
 

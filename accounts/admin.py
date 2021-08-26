@@ -7,7 +7,7 @@ from student.models import *
 # Register your models here.
 
 
-admin.site.site_header = ' Πλατφόρμα Διαχείρησης Μεταπτυχιακού Προγράμματος Χαροκοπείου'
+admin.site.site_header = ' Πλατφόρμα Διαχείρησης Μεταπτυχιακού Προγράμματος'
 admin.site.site_title = 'Hua PostGrad Portal'
 
 class ProfileA(admin.ModelAdmin):

@@ -33,6 +33,7 @@ from hua_thesis.views import (
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),#Django Jet URLs
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),#Django Jet Dashboard URLs
+    path('', include('pwa.urls')),#Pwa urls
     path('captcha/', include('captcha.urls')),
     path('admin/', admin.site.urls, name='admin'),
     path('', views.home, name='home'),

@@ -13,8 +13,8 @@
                             <h5 class="card-title">Ποσά αιτηθέντων χρημάτων</h5>
                         </div>
                         <div class="card-body">
-                            <h6 class="card-text">Σύνολο: {{ fund_sum }}</h6>
-                            <h6 class="card-text">Αποδεκτά: {{ accepted_fund }}</h6>
+                            <h6 class="card-text">Σύνολο: {{ fund_sum }} €</h6>
+                            <h6 class="card-text">Αποδεκτά: {{ accepted_fund | default_if_none:"0"}} €</h6>
                         </div>
                     </div>
                 </div>

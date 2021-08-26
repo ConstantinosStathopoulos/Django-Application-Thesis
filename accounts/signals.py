@@ -34,7 +34,7 @@ def save_user_profile(sender, instance, created, **kwargs):
                 subject,
                 message,
                 settings.EMAIL_HOST_USER,
-                ['it214100@hua.gr'],
+                ['email@example.gr'],
                 fail_silently=False,
             )
 
